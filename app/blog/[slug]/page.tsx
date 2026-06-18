@@ -14,10 +14,14 @@ marked.setOptions({
 
 type Props = { params: Promise<{ slug: string }> }
 
+const baseUrl = "https://sabalongweb.vercel.app"
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = getBlogBySlug(slug)
   if (!post) return {}
+
+  const imageUrl = `${baseUrl}${post.image}`
 
   return {
     title: post.title,
@@ -25,17 +29,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      url: `https://sabalongweb.vercel.app/blog/${post.slug}`,
+      url: `${baseUrl}/blog/${post.slug}`,
       type: "article",
-      images: [{ url: post.image, width: 900, height: 500, alt: post.title }],
+      images: [{ url: imageUrl, width: 900, height: 500, alt: post.title }],
     },
     twitter: {
       title: post.title,
       description: post.excerpt,
-      images: [post.image],
+      images: [imageUrl],
     },
     alternates: {
-      canonical: `https://sabalongweb.vercel.app/blog/${post.slug}`,
+      canonical: `${baseUrl}/blog/${post.slug}`,
     },
   }
 }
