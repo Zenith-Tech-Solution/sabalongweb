@@ -1,97 +1,53 @@
-"use client"
-
-import { useState, useEffect, useMemo } from "react"
-import { useParams } from "next/navigation"
 import Image from "next/image"
 import Navbar from "@/components/Navbar"
 import { ArrowUpRight } from "lucide-react"
 import { marked } from "marked"
 import Link from "next/link"
+import { getBlogBySlug, getAllBlogs } from "@/lib/blogs"
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
 
 marked.setOptions({
   breaks: true,
   gfm: true,
 })
 
-interface BlogPost {
-  slug: string
-  title: string
-  date: string
-  excerpt: string
-  content: string
-  image: string
-  tags: string[]
-  author: string
+type Props = { params: Promise<{ slug: string }> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const post = getBlogBySlug(slug)
+  if (!post) return {}
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `https://sabalongweb.vercel.app/blog/${post.slug}`,
+      type: "article",
+      images: [{ url: post.image, width: 900, height: 500, alt: post.title }],
+    },
+    twitter: {
+      title: post.title,
+      description: post.excerpt,
+      images: [post.image],
+    },
+    alternates: {
+      canonical: `https://sabalongweb.vercel.app/blog/${post.slug}`,
+    },
+  }
 }
 
-export default function BlogDetail() {
-  const { slug } = useParams<{ slug: string }>()
-  const [post, setPost] = useState<BlogPost | null>(null)
-  const [related, setRelated] = useState<BlogPost[]>([])
+export default async function BlogDetail({ params }: Props) {
+  const { slug } = await params
+  const post = getBlogBySlug(slug)
+  if (!post) notFound()
 
-  useEffect(() => {
-    fetch(`/api/blogs?slug=${slug}`)
-      .then((r) => r.json())
-      .then((data) => {
-        setPost(data)
-        fetch("/api/blogs")
-          .then((r) => r.json())
-          .then((all) => setRelated(all.filter((b: BlogPost) => b.slug !== slug).slice(0, 2)))
-      })
-      .catch(() => {})
-  }, [slug])
-
-  useEffect(() => {
-    if (!post) return
-
-    const baseUrl = "https://sabalongweb.vercel.app"
-    const pageUrl = `${baseUrl}/blog/${post.slug}`
-    const imageUrl = `${baseUrl}${post.image}`
-
-    document.title = `${post.title} | SabalongWeb`
-
-    const setOrUpdateMeta = (attr: string, value: string, content: string) => {
-      let el = document.querySelector(`meta[${attr}="${value}"]`)
-      if (!el) {
-        el = document.createElement("meta")
-        el.setAttribute(attr, value)
-        document.head.appendChild(el)
-      }
-      el.setAttribute("content", content)
-    }
-
-    setOrUpdateMeta("property", "og:title", post.title)
-    setOrUpdateMeta("property", "og:description", post.excerpt)
-    setOrUpdateMeta("property", "og:image", imageUrl)
-    setOrUpdateMeta("property", "og:url", pageUrl)
-    setOrUpdateMeta("property", "og:type", "article")
-    setOrUpdateMeta("name", "twitter:title", post.title)
-    setOrUpdateMeta("name", "twitter:description", post.excerpt)
-    setOrUpdateMeta("name", "twitter:image", imageUrl)
-    setOrUpdateMeta("name", "description", post.excerpt)
-
-    let canonical = document.querySelector('link[rel="canonical"]')
-    if (!canonical) {
-      canonical = document.createElement("link")
-      canonical.setAttribute("rel", "canonical")
-      document.head.appendChild(canonical)
-    }
-    canonical.setAttribute("href", pageUrl)
-  }, [post])
-
-  const htmlContent = useMemo(() => {
-    if (!post) return ""
-    return marked.parse(post.content) as string
-  }, [post])
-
-  if (!post) {
-    return (
-      <main className="bg-primary min-h-screen font-poppins">
-        <Navbar />
-        <div className="pt-32 text-center text-[#FFDBFD]">Loading...</div>
-      </main>
-    )
-  }
+  const allBlogs = getAllBlogs()
+  const related = allBlogs.filter((b) => b.slug !== slug).slice(0, 2)
+  const htmlContent = marked.parse(post.content) as string
 
   return (
     <main className="bg-primary min-h-screen font-poppins">
