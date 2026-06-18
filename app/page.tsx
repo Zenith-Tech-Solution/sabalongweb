@@ -6,7 +6,7 @@ import Image from "next/image"
 import hero from "../public/handphone.png"
 import logo from "../public/logo.png"
 import Link from "next/link"
-import { ArrowUpRight, Code, Palette, Settings, Layers, ChevronLeft, ChevronRight, Mail, Globe, Phone } from "lucide-react"
+import { ArrowUpRight, Code, Palette, Settings, Layers, ChevronLeft, ChevronRight, Mail, Globe, Phone, MessageCircle, CheckCircle, Rocket } from "lucide-react"
 import image1 from '../public/image1.png'
 import image2 from '../public/image2.png'
 import image3 from '../public/image3.png'
@@ -187,6 +187,64 @@ export default function App() {
             </p>
           </div>
           <Image className="rounded-md" data-aos="fade-in" src={image3} height={120} width={950} alt="image1" />
+        </div>
+      </section>
+
+      {/*cara kerja section*/}
+      <section id="cara-kerja" className="relative bg-[#FFDBFD] py-24 px-6 font-poppins overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none z-0 opacity-[0.07]"
+          style={{ backgroundImage: "radial-gradient(circle, #6367FF 1px, transparent 1px)", backgroundSize: "28px 28px" }}
+        />
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div data-aos="fade-up" className="text-center mb-16">
+            <h2 className="text-4xl max-md:text-2xl font-semibold text-primary">Cara Kami Bekerja</h2>
+            <p className="text-primary/80 mt-3 max-w-2xl mx-auto text-sm">
+              Proses sederhana dan transparan dari diskusi hingga website Anda siap meluncur.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-5 max-md:grid-cols-1 gap-6 max-md:gap-8">
+            {[
+              {
+                icon: MessageCircle,
+                title: "Diskusi & Konsultasi",
+                desc: "Kami mendengarkan kebutuhan dan visi Anda, memahami target audiens, dan memberikan saran terbaik.",
+              },
+              {
+                icon: Palette,
+                title: "Desain & Wireframe",
+                desc: "Merancang tampilan modern, user-friendly, dan sesuai dengan identitas brand Anda.",
+              },
+              {
+                icon: Code,
+                title: "Development",
+                desc: "Membangun website dengan teknologi terkini, responsive, dan dioptimalkan untuk performa.",
+              },
+              {
+                icon: CheckCircle,
+                title: "Testing & Revisi",
+                desc: "Pengujian menyeluruh dan revisi sampai hasilnya sesuai dengan ekspektasi Anda.",
+              },
+              {
+                icon: Rocket,
+                title: "Launch & Maintenance",
+                desc: "Website siap go live! Kami juga siap maintenance rutin agar tetap optimal.",
+              },
+            ].map((step, i) => {
+              const Icon = step.icon
+              return (
+                <div key={i} data-aos="fade-up" data-aos-delay={i * 100} className="flex flex-col items-center text-center group relative">
+                  <div className="max-md:hidden absolute top-8 left-[calc(50%+2.5rem)] w-[calc(100%-3rem)] h-0.5 bg-primary/20 -z-10" />
+                  <div className="w-16 h-16 rounded-full bg-primary text-[#FFDBFD] flex items-center justify-center text-lg font-bold mb-4 transition-all duration-500 ease-out group-hover:scale-110 group-hover:shadow-xl">
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="text-sm font-semibold text-primary mb-2">{step.title}</h3>
+                  <p className="text-xs text-primary/70 leading-relaxed max-w-[200px]">{step.desc}</p>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </section>
 
