@@ -1,7 +1,7 @@
 "use client"
 
 import Navbar from "@/components/Navbar"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Image from "next/image"
 import hero from "../public/handphone.png"
 import logo from "../public/logo.png"
@@ -106,12 +106,26 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("website")
   const current = priceData[activeTab]
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
 
   const scroll = (dir: "left" | "right") => {
     if (!scrollRef.current) return
     const amount = 360
     scrollRef.current.scrollBy({ left: dir === "left" ? -amount : amount, behavior: "smooth" })
   }
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const check = () => {
+      setCanScrollLeft(el.scrollLeft > 5)
+      setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 5)
+    }
+    check()
+    el.addEventListener("scroll", check)
+    return () => el.removeEventListener("scroll", check)
+  }, [])
 
   const [form, setForm] = useState({ nama: "", nomor: "", kategori: "Website", pesan: "" })
   const kategoriList = ["Website", "UI/UX Design", "Lainnya"]
@@ -389,8 +403,25 @@ export default function App() {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 w-24 z-10 pointer-events-none bg-gradient-to-r from-primary to-transparent" />
-            <div className="absolute inset-y-0 right-0 w-24 z-10 pointer-events-none bg-gradient-to-l from-primary to-transparent" />
+            <div className="absolute inset-y-0 left-0 w-20 max-md:w-6 z-10 pointer-events-none bg-gradient-to-r from-primary/60 to-transparent" />
+            <div className="absolute inset-y-0 right-0 w-20 max-md:w-6 z-10 pointer-events-none bg-gradient-to-l from-primary/60 to-transparent" />
+
+            <div className="md:hidden flex justify-start gap-2 mb-4">
+              <button
+                onClick={() => scroll("left")}
+                className="bg-[#FFDBFD] text-primary p-2.5 transition-all duration-500 ease-out active:scale-95"
+                style={{ opacity: canScrollLeft ? 1 : 0.2 }}
+              >
+                <ChevronLeft size={20} />
+              </button>
+              <button
+                onClick={() => scroll("right")}
+                className="bg-[#FFDBFD] text-primary p-2.5 transition-all duration-500 ease-out active:scale-95"
+                style={{ opacity: canScrollRight ? 1 : 0.2 }}
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
             <div
               ref={scrollRef}
               className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hide pb-4"
@@ -434,13 +465,15 @@ export default function App() {
 
             <button
               onClick={() => scroll("left")}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 bg-[#FFDBFD] text-primary p-3 transition-all duration-500 ease-out hover:scale-110 z-20 hidden md:block"
+              className="absolute -left-4 top-1/2 -translate-y-1/2 bg-[#FFDBFD] text-primary p-3 transition-all duration-500 ease-out hover:scale-110 z-20 max-md:hidden"
+              style={{ opacity: canScrollLeft ? 1 : 0.2, pointerEvents: canScrollLeft ? "auto" as const : "none" as const }}
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 bg-[#FFDBFD] text-primary p-3 transition-all duration-500 ease-out hover:scale-110 z-20 hidden md:block"
+              className="absolute -right-4 top-1/2 -translate-y-1/2 bg-[#FFDBFD] text-primary p-3 transition-all duration-500 ease-out hover:scale-110 z-20 max-md:hidden"
+              style={{ opacity: canScrollRight ? 1 : 0.2, pointerEvents: canScrollRight ? "auto" as const : "none" as const }}
             >
               <ChevronRight size={24} />
             </button>
