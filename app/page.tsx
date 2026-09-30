@@ -40,6 +40,19 @@ export default function App() {
       <main id="main" className="flex-1">
         <Hero />
 
+        {/* Client quotes sit between the hero and the stats band — the one strip
+            that bridges the ask and the proof, so neither has to carry the
+            weight alone. It keeps the hero purple on purpose: white cards on
+            white measured a 1.04 contrast and vanished, and on brand purple
+            the label sits at 7.34. That same purple is what `gradientColor` in
+            CommentMarquee fades into, so the rows dissolve instead of ending on
+            a hard edge. */}
+        <section className="bg-brand-solid px-4 pb-20">
+          <div className="mx-auto max-w-screen-xl">
+            <CommentMarquee />
+          </div>
+        </section>
+
         {/* Stats: a four-cell hairline grid, no heading. The padding is the
             section's own rhythm now — it used to be `pt-24` because the hero
             panel hung 80px into this band and the numbers had to clear it.
@@ -192,16 +205,7 @@ export default function App() {
         {/* Closing CTA on the lightest brand tint, so the dark text stays
             readable and the purple button still has a 4.74:1 boundary. */}
         <section className="on-brand section-container relative flex flex-col items-center justify-center bg-brand-tint section-pad text-center">
-          {/* Comment cards sit at the very top of the closing CTA, ahead of the
-              ask. No panel: white cards on the brand tint carry their own
-              contrast on their own, and the marquee's side fades dissolve
-              straight into that tint — which is why `gradientColor` in
-              CommentMarquee matches it. */}
-          <div className="w-full">
-            <CommentMarquee />
-          </div>
-
-          <div className="mt-12 w-full max-md:mx-10 md:mt-16">
+          <div className="w-full max-md:mx-10">
             <h2 className="text-neutral-900">
               Ceritakan dulu kebutuhannya, belum perlu deal
             </h2>

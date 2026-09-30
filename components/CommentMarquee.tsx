@@ -81,7 +81,7 @@ export default function CommentMarquee() {
       speed={45}
       direction={reverse ? "right" : "left"}
       gradient
-      gradientColor="rgb(239 239 253)"
+      gradientColor="rgb(96 96 240)"
       className="overflow-hidden"
       onMount={trackReady}
     >
