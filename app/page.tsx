@@ -221,10 +221,7 @@ export default function App() {
 
         {/* Testimonials sit after the closing CTA, not before it. Ending on the
             ask is what makes the ask work — a marquee in between would put the
-            last thing a visitor reads between them and the button. The cards
-            bleed to the viewport edge (negative inline margin against the
-            `section-container` border) because a marquee boxed inside a
-            80rem frame reads as a scrolling table, not a wall of voices. */}
+            last thing a visitor reads between them and the button. */}
         <section className="relative overflow-hidden bg-canvas section-pad">
           <div className="section-container relative">
             <SectionHeading
@@ -234,10 +231,11 @@ export default function App() {
             />
 
             <div className="relative z-2 mt-8 md:mt-10">
-              {/* Bleeds past the container's inline padding so a card is cut by
-                  the viewport edge, not by a border. The two side fades are
-                  what stop that cut from looking like a rendering mistake. */}
-              <div className="-mx-4 px-4 md:-mx-8 md:px-8">
+              {/* The marquee is boxed rather than bled to the viewport edge, so
+                  the cards read as a held panel instead of a table. Padding
+                  here is what the marquee's side fades dissolve into, which is
+                  why `gradientColor` in CommentMarquee matches this surface. */}
+              <div className="rounded-xl border border-line bg-canvas p-4 md:p-6">
                 <CommentMarquee />
               </div>
             </div>
