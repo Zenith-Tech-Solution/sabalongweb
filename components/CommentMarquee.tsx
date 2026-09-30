@@ -41,10 +41,10 @@ function Card({ comment }: { comment: Comment }) {
           className="size-10 shrink-0 rounded-full border border-neutral-200 bg-neutral-100"
         />
         <span className="min-w-0">
-          <span className="block truncate text-sm font-semibold text-neutral-900">
+          <span className="block text-sm font-semibold leading-snug text-neutral-900">
             {comment.name}
           </span>
-          <span className="block truncate text-xs text-neutral-500">
+          <span className="block text-xs leading-snug text-neutral-500">
             {comment.role}
           </span>
         </span>
@@ -89,7 +89,7 @@ export default function CommentMarquee() {
         direction="left"
         gradient
         gradientColor="rgb(96 96 240)"
-        className="overflow-hidden"
+        className="rfm-cards overflow-hidden"
         onMount={() => setMounted(true)}
       >
         {comments.map((c) => (
@@ -103,6 +103,15 @@ export default function CommentMarquee() {
           property, so overriding that one var is the supported way in — the
           library exposes no `data-` hook, only the `.rfm-marquee` track class. */}
       <style>{`
+        /* Uniform card height. \`react-fast-marquee\` centres its children, so a
+           card whose quote ran a line short came out visibly shorter than its
+           neighbours — 208px sitting in a row of 232px. Stretch instead: the
+           row's cross size comes from the tallest card and every card fills it,
+           so the strip stays even without pinning a pixel height that would
+           break the moment the copy changes. The caption is already pinned to
+           the bottom by \`flex-1\` on the quote, so it lines up across cards. */
+        .rfm-cards .rfm-initial-child-container { align-items: stretch; }
+
         @media (prefers-reduced-motion: reduce) {
           .rfm-marquee { --play: paused !important; }
         }

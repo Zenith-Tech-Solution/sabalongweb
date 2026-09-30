@@ -92,8 +92,9 @@ export default function Hero() {
             cards on brand purple keep the quote text at 7.34 — on a white band
             the same cards measured 1.04 against it and disappeared, which is
             also why `gradientColor` in CommentMarquee is this purple and not
-            white. `mt-12`/`md:mt-16` is the small gap up to the buttons. */}
-        <div className="mt-12 w-full md:mt-16">
+            white. The padding is even on both sides so the strip does not sit
+            jammed against the buttons above it or the colour break below it. */}
+        <div className="mt-12 w-full pb-14 md:mt-16 md:pb-20">
           <CommentMarquee />
         </div>
       </div>
