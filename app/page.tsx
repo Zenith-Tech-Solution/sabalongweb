@@ -39,10 +39,7 @@ export default function App() {
       <main id="main" className="flex-1">
         <Hero />
 
-        {/* Stats: a four-cell hairline grid, no heading. The padding is the
-            section's own rhythm now — it used to be `pt-24` because the hero
-            panel hung 80px into this band and the numbers had to clear it.
-            With the panel gone that extra 80px was just a hole under the hero. */}
+        {/* Stats: a four-cell hairline grid, no heading. */}
         <section className="bg-canvas pt-16 pb-16">
           <div className="section-container">
             <div

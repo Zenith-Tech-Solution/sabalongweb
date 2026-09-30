@@ -88,14 +88,14 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* Client quotes sit under the ask, inside the hero. White cards on
-            brand purple keep the label at 7.34 — on a white band the same
-            cards measured 1.04 against it and disappeared, which is also why
-            `gradientColor` in CommentMarquee is this purple and not white. */}
-        <div className="mt-16 w-full md:mt-20">
+        {/* Client quotes sit under the ask, inside the hero, full-bleed. White
+            cards on brand purple keep the quote text at 7.34 — on a white band
+            the same cards measured 1.04 against it and disappeared, which is
+            also why `gradientColor` in CommentMarquee is this purple and not
+            white. `mt-12`/`md:mt-16` is the small gap up to the buttons. */}
+        <div className="mt-12 w-full md:mt-16">
           <CommentMarquee />
         </div>
-
       </div>
     </header>
   )
