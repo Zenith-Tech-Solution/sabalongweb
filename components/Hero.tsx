@@ -72,8 +72,14 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             /* Inverted like the nav CTA: white on purple is 1.00, white-on-white
-               is 7.34 for the label and 4.74 against the header. */
-            className="inline-flex h-12 w-full items-center justify-center border border-white bg-white px-6 text-lg tracking-tight text-brand-deep transition-colors duration-300 hover:bg-lavender hover:border-lavender md:w-auto"
+               is 7.34 for the label and 4.74 against the header.
+
+               `text-lg` on a 343px-wide phone button was oversized and ate the
+               label into two lines, so the type and padding step up at `sm`
+               instead. Height stays 48px at every width — that is the touch
+               target, not a styling choice, and shrinking it on mobile would
+               cost reachability to buy nothing. */
+            className="inline-flex h-12 w-full items-center justify-center border border-white bg-white px-4 text-base tracking-tight text-brand-deep transition-colors duration-300 hover:border-lavender hover:bg-lavender sm:px-6 sm:text-lg md:w-auto"
           >
             Konsultasi WhatsApp
           </a>
@@ -82,7 +88,7 @@ export default function Hero() {
             /* Ghost, not tinted: brand-deep/40 landed 5.65 for the text but only
                1.19 against the header, so the edge vanished. A white border
                gives a 4.74 boundary and keeps the fill clear. */
-            className="inline-flex h-12 w-full items-center justify-center border border-white bg-transparent px-6 text-lg tracking-tight text-white transition-colors duration-300 hover:bg-white hover:text-brand-deep md:w-auto"
+            className="inline-flex h-12 w-full items-center justify-center border border-white bg-transparent px-4 text-base tracking-tight text-white transition-colors duration-300 hover:bg-white hover:text-brand-deep sm:px-6 sm:text-lg md:w-auto"
           >
             Lihat harga
           </Link>

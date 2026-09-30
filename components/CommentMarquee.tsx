@@ -16,6 +16,13 @@ import { comments, type Comment } from "@/lib/content"
  * match the stats grid below, so where the strip meets that grid the two lines
  * are one line instead of two different greys stacked on each other.
  *
+ * The width is a fixed value per breakpoint, NOT a `vw` unit. Sizing the card
+ * off the viewport meant every phone rendered a different card — 331px wide on
+ * a 414px screen, 300px on a 375px one, and a different height too, since the
+ * quote re-wrapped. A phone-sized card is now 21rem on every handset, growing
+ * once at `sm` and again at `md`. `max-w-[92vw]` is only a floor guard for
+ * sub-348px screens; nothing in normal use hits it.
+ *
  * `pauseOnHover` is the affordance that matters most: a moving wall of text is
  * unreadable for anyone who needs to read at their own pace, and WCAG 2.2.2
  * (Pause, Stop, Hide) requires the ability to pause auto-updating motion.
@@ -31,7 +38,7 @@ import { comments, type Comment } from "@/lib/content"
  */
 function Card({ comment }: { comment: Comment }) {
   return (
-    <figure className="flex h-full w-[24rem] max-w-[80vw] shrink-0 grow-0 flex-col border-y border-r border-neutral-200 bg-canvas p-6 sm:w-[28rem] sm:max-w-none">
+    <figure className="flex h-full w-[21rem] max-w-[92vw] shrink-0 grow-0 flex-col border-y border-r border-neutral-200 bg-canvas p-6 sm:w-[24rem] sm:max-w-none md:w-[28rem]">
       <LuQuote aria-hidden className="mb-3 shrink-0 text-brand" size={20} />
 
       <blockquote className="flex-1 text-[15px] leading-relaxed text-neutral-700">

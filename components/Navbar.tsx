@@ -32,6 +32,15 @@ export default function Navbar() {
   /* Scrolling down compacts the bar to a capsule holding just the logo and the
      CTA; scrolling up gives it the full width back.
 
+     Compact is DESKTOP ONLY. On mobile the bar is a thumb target you reach for
+     without looking, and letting it shrink mid-scroll meant the target changed
+     size and position while your thumb was already moving toward it. So below
+     `md` the scroll listener parks `compact` at false and the bar keeps its size.
+
+     `matchMedia` is re-read per event rather than cached, so rotating a tablet
+     or dragging a desktop window narrow re-decides on the next scroll instead of
+     needing a separate resize listener.
+
      Two thresholds, not one: collapse past 120px, expand again below 80px. With a
      single threshold the bar flickers whenever a trackpad settles right on the
      boundary, because each scroll event re-decides.
@@ -39,8 +48,14 @@ export default function Navbar() {
      `setCompact` to the value it already holds bails out of the re-render, so
      the frequent events cost nothing; only the two crossings do. */
   useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 768px)")
     const onScroll = () => {
       const y = window.scrollY
+      if (!desktop.matches) {
+        setCompact(false)
+        lastY.current = y
+        return
+      }
       const delta = y - lastY.current
       if (y > 120 && delta > 0) setCompact(true)
       else if (y < 80 || delta < 0) setCompact(false)
@@ -101,8 +116,10 @@ export default function Navbar() {
         {/* The bar closes in from both edges because it is centred and its
             max-width shrinks, rather than sliding off one side. */}
         <nav
+          /* `md:max-w-[380px]` with no base width: `compact` is desktop-only, and
+             this way a stray `true` below `md` still could not narrow the bar. */
           className={`on-brand pointer-events-auto mx-auto flex h-16 w-full items-center justify-between overflow-hidden bg-brand-solid px-4 shadow-lg shadow-neutral-950/25 ring-1 ring-white/20 transition-[max-width] duration-500 ease-out motion-reduce:transition-none md:justify-center md:px-6 ${
-            compact && !open ? "max-w-[240px] md:max-w-[380px]" : "max-w-screen-xl"
+            compact && !open ? "md:max-w-[380px]" : "max-w-screen-xl"
           }`}
         >
           <Link
