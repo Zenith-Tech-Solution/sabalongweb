@@ -1,45 +1,47 @@
 import Image from "next/image"
-import Navbar from "@/components/Navbar"
-import { ArrowUpRight } from "lucide-react"
-import { marked } from "marked"
 import Link from "next/link"
+import { marked } from "marked"
+import { LuArrowLeft } from "react-icons/lu"
+import Navbar from "@/components/Navbar"
+import Footer from "@/components/Footer"
 import { getBlogBySlug, getAllBlogs } from "@/lib/blogs"
+import { site, absoluteUrl } from "@/lib/site"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-marked.setOptions({
-  breaks: true,
-  gfm: true,
-})
+marked.setOptions({ breaks: true, gfm: true })
 
 type Props = { params: Promise<{ slug: string }> }
 
-const baseUrl = "https://sabalongweb.vercel.app"
+export async function generateStaticParams() {
+  return getAllBlogs().map((post) => ({ slug: post.slug }))
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = getBlogBySlug(slug)
   if (!post) return {}
 
-  const imageUrl = `${baseUrl}${post.image}`
-
   return {
     title: post.title,
     description: post.excerpt,
+    keywords: post.tags,
+    alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
+      type: "article",
       title: post.title,
       description: post.excerpt,
-      url: `${baseUrl}/blog/${post.slug}`,
-      type: "article",
-      images: [{ url: imageUrl, width: 900, height: 500, alt: post.title }],
+      url: `/blog/${post.slug}`,
+      siteName: site.name,
+      locale: site.locale,
+      publishedTime: post.date,
+      authors: [post.author],
+      tags: post.tags,
     },
     twitter: {
+      card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-      images: [imageUrl],
-    },
-    alternates: {
-      canonical: `${baseUrl}/blog/${post.slug}`,
     },
   }
 }
@@ -49,77 +51,110 @@ export default async function BlogDetail({ params }: Props) {
   const post = getBlogBySlug(slug)
   if (!post) notFound()
 
-  const allBlogs = getAllBlogs()
-  const related = allBlogs.filter((b) => b.slug !== slug).slice(0, 2)
+  const related = getAllBlogs()
+    .filter((item) => item.slug !== slug)
+    .slice(0, 3)
   const htmlContent = marked.parse(post.content) as string
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    image: absoluteUrl(post.image),
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { "@type": "Organization", name: post.author },
+    publisher: {
+      "@type": "Organization",
+      name: site.name,
+      logo: { "@type": "ImageObject", url: absoluteUrl("/logo-sabalong.png") },
+    },
+    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+    keywords: post.tags.join(", "),
+  }
+
   return (
-    <main className="bg-primary min-h-screen font-poppins">
+    <>
       <Navbar />
 
-      <article className="pt-32 pb-24 px-6">
-        <div className="max-w-3xl mx-auto">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1 text-[#FFDBFD]/70 hover:text-[#FFDBFD] text-sm mb-8 transition-all"
-          >
-            <ArrowUpRight size={14} className="rotate-180" /> Kembali ke Blog
-          </Link>
+      <main id="main" className="flex-1">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
 
-          <div className="mb-8">
-            <div className="flex items-center gap-2 mb-3 flex-wrap">
-              {post.tags.map((tag) => (
-                <span key={tag} className="text-xs font-semibold text-primary bg-[#FFDBFD] px-3 py-1">
-                  {tag}
-                </span>
-              ))}
-              <span className="text-xs text-[#FFDBFD]/60">{post.date}</span>
+        <article className="px-6 pt-28 pb-24 md:pt-36 md:pb-32">
+          <div className="mx-auto max-w-3xl">
+            <Link
+              href="/blog"
+              className="-mb-1 inline-flex min-h-10 items-center gap-1.5 text-body text-ink-muted transition-colors duration-150 hover:text-ink"
+            >
+              <LuArrowLeft size={16} aria-hidden />
+              Kembali ke Blog
+            </Link>
+
+            <header className="mt-8">
+              <p className="flex flex-wrap items-center gap-2 font-mono text-label uppercase text-ink-faint">
+                <span className="text-accent">{post.category}</span>
+                <span aria-hidden>·</span>
+                <span>{post.displayDate}</span>
+                <span aria-hidden>·</span>
+                <span>{post.readingTime} menit baca</span>
+              </p>
+              <h1 className="mt-5 text-balance">{post.title}</h1>
+              <p className="mt-4 text-lead text-ink-muted">{post.excerpt}</p>
+            </header>
+
+            <div className="mt-10 overflow-hidden border border-line">
+              <Image
+                src={post.image}
+                alt={post.coverAlt}
+                width={1200}
+                height={800}
+                className="h-auto w-full object-cover"
+                priority
+              />
             </div>
-            <h1 className="text-4xl max-md:text-2xl font-semibold text-[#FFDBFD] leading-tight">
-              {post.title}
-            </h1>
-            <p className="text-[#FFDBFD]/60 text-sm mt-2">Oleh {post.author}</p>
-          </div>
 
-          <div className="mb-10 overflow-hidden">
-            <Image
-              src={post.image}
-              alt={post.title}
-              width={900}
-              height={500}
-              className="w-full h-auto object-cover"
+            <div
+              className="blog-content mt-16"
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
           </div>
+        </article>
 
-          <div
-            className="blog-content text-[#FFDBFD] max-w-none"
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-          />
-
-          {related.length > 0 && (
-            <div className="mt-16 pt-10 border-t border-[#FFDBFD]/20">
-              <h3 className="text-2xl font-semibold text-[#FFDBFD] mb-6">Artikel Terkait</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {related.length > 0 && (
+          <section className="border-t border-line px-6 py-24 md:py-32">
+            <div className="mx-auto max-w-5xl">
+              <h2 className="font-mono text-label uppercase text-ink-faint">
+                Artikel terkait
+              </h2>
+              <div className="mt-8 grid gap-x-8 gap-y-10 sm:grid-cols-2">
                 {related.map((item) => (
                   <Link
                     key={item.slug}
                     href={`/blog/${item.slug}`}
-                    className="group bg-[#FFDBFD] p-5 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl"
+                    className="group block"
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 border border-primary/20">
-                        {item.tags[0]}
-                      </span>
-                    </div>
-                    <h4 className="text-primary font-semibold group-hover:underline">{item.title}</h4>
-                    <p className="text-primary/70 text-xs mt-1">{item.excerpt}</p>
+                    <p className="font-mono text-label uppercase text-ink-faint">
+                      {item.category}
+                    </p>
+                    <h3 className="mt-2 text-body font-medium text-balance transition-colors duration-150 group-hover:text-accent">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-body text-ink-muted">
+                      {item.excerpt}
+                    </p>
                   </Link>
                 ))}
               </div>
             </div>
-          )}
-        </div>
-      </article>
-    </main>
+          </section>
+        )}
+      </main>
+
+      <Footer />
+    </>
   )
 }

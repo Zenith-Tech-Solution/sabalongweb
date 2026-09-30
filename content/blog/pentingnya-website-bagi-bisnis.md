@@ -1,8 +1,11 @@
 ---
 title: "Pentingnya Website bagi Bisnis di Era Digital"
-date: "18 Juni 2026"
+date: "2026-06-18"
 excerpt: "Website bukan lagi sekadar pilihan, melainkan kebutuhan utama bagi setiap bisnis yang ingin berkembang di era digital. Simak manfaat dan alasannya."
 image: "/blog-website-v2.jpg"
+coverAlt: "Tampilan laptop menampilkan website bisnis yang rapi"
+category: "Bisnis"
+featured: false
 tags: ["Bisnis", "Digital", "Website"]
 author: "SabalongWeb"
 ---
@@ -62,4 +65,4 @@ Banyak pelaku UMKM hanya mengandalkan media sosial untuk berjualan. Padahal, web
 
 Website adalah investasi jangka panjang yang memberikan ROI (Return on Investment) tinggi bagi bisnis Anda. Dengan biaya yang terjangkau, Anda bisa mendapatkan aset digital yang bekerja 24/7 untuk mengembangkan bisnis.
 
-Sudah siap memiliki website profesional untuk bisnis Anda? [Konsultasi gratis dengan tim SabalongWeb](https://wa.me/6283824425487) sekarang juga!
+Sudah siap memiliki website profesional untuk bisnis Anda? [Konsultasi gratis dengan tim SabalongWeb](https://wa.me/6283162564970) sekarang juga!

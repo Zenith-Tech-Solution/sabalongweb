@@ -1,90 +1,107 @@
-import { getAllBlogs } from "@/lib/blogs"
 import Image from "next/image"
 import Link from "next/link"
+import { LuArrowUpRight } from "react-icons/lu"
 import Navbar from "@/components/Navbar"
-import { ArrowUpRight } from "lucide-react"
+import Footer from "@/components/Footer"
+import { getAllBlogs } from "@/lib/blogs"
 import type { Metadata } from "next"
 
-export async function generateMetadata(): Promise<Metadata> {
-  const blogs = getAllBlogs()
-  const image = blogs[0]?.image ?? "/logo-sabalong.png"
-
-  return {
-    title: "Blog",
-    description: "Tips, panduan, dan insight seputar pembuatan website, desain, dan bisnis digital dari SabalongWeb. Baca artikel terbaru kami!",
-    openGraph: {
-      title: "Blog - SabalongWeb",
-      description: "Tips, panduan, dan insight seputar pembuatan website, desain, dan bisnis digital dari SabalongWeb.",
-      url: "https://sabalongweb.vercel.app/blog",
-      images: [{ url: image, width: 800, height: 600, alt: "Blog SabalongWeb" }],
-    },
-    twitter: {
-      title: "Blog - SabalongWeb",
-      description: "Tips, panduan, dan insight seputar pembuatan website, desain, dan bisnis digital.",
-      images: [image],
-    },
-  }
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Catatan praktis soal pembuatan website, desain, dan biaya dari studio kami.",
+  alternates: { canonical: "/blog" },
 }
 
 export default function BlogPage() {
-  const sorted = getAllBlogs()
+  const posts = getAllBlogs()
+  const featured = posts.find((post) => post.featured) ?? posts[0]
+  const rest = posts.filter((post) => post.slug !== featured?.slug)
 
   return (
-    <main className="bg-primary min-h-screen">
+    <>
       <Navbar />
-      <section className="pt-32 pb-24 px-6 font-poppins">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h1 className="text-5xl max-md:text-3xl font-semibold text-[#FFDBFD]">Blog</h1>
-            <p className="text-[#FFDBFD]/80 mt-3 max-w-xl mx-auto text-sm">
-              Tips, panduan, dan insight seputar pembuatan website, desain, dan bisnis digital.
+
+      <main id="main" className="flex-1">
+        <section className="px-4 pt-28 pb-16 md:pt-36 md:pb-20">
+          <div className="mx-auto max-w-screen-xl">
+            <h1 className="mt-6 max-w-3xl text-balance">Catatan dari studio</h1>
+            <p className="mt-6 max-w-2xl text-lead text-ink-muted">
+              Tulisan soal hal yang sering ditanya klien: biaya, proses, dan
+              keputusan teknis yang jarang dijelaskan di mana-mana.
             </p>
           </div>
+        </section>
 
-          <div className="space-y-6">
-            {sorted.map((post, i) => (
+        <section className="px-4 pb-24 md:pb-32 lg:pb-40">
+          <div className="mx-auto max-w-screen-xl">
+            {featured && (
               <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="group grid grid-cols-1 md:grid-cols-5 gap-6 bg-[#FFDBFD] p-6 transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl"
+                href={`/blog/${featured.slug}`}
+                className="group grid gap-6 border-b border-neutral-200 pb-12 md:grid-cols-12 md:items-center"
               >
-                <div className="md:col-span-2 overflow-hidden">
+                <div className="relative aspect-[3/2] overflow-hidden bg-neutral-50 md:col-span-6">
                   <Image
-                    src={post.image}
-                    alt={post.title}
-                    width={400}
-                    height={250}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+                    src={featured.image}
+                    alt={featured.coverAlt}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="md:col-span-3 flex flex-col justify-between text-primary">
-                  <div>
-                    <h2 className="text-xl font-semibold group-hover:underline">
-                      {post.title}
-                    </h2>
-                    <p className="text-sm opacity-80 mt-2 leading-relaxed">{post.excerpt}</p>
-                    <div className="flex items-center gap-3 mt-3">
-                      <span className="text-xs font-semibold bg-primary/10 px-3 py-1 border border-primary/20">
-                        {post.tags[0]}
-                      </span>
-                      <span className="text-xs opacity-60">{post.date}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center gap-2">
-                      <Image src="/logo-sabalong.png" alt="SabalongWeb" width={18} height={18} className="rounded-full" />
-                      <span className="text-xs font-medium text-primary/70">{post.author}</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300">
-                      Baca selengkapnya <ArrowUpRight size={16} />
-                    </div>
-                  </div>
+                <div className="md:col-span-6">
+                  <p className="font-mono text-label uppercase text-ink-faint">
+                    Artikel pilihan
+                  </p>
+                  <h2 className="mt-4 text-lead text-balance transition-colors duration-150 group-hover:text-accent">
+                    {featured.title}
+                  </h2>
+                  <p className="mt-3 text-body text-ink-muted">{featured.excerpt}</p>
+                  <p className="mt-5 inline-flex items-center gap-1.5 text-body text-ink-muted transition-colors duration-150 group-hover:text-ink">
+                    Baca selengkapnya
+                    <LuArrowUpRight size={16} aria-hidden />
+                  </p>
                 </div>
               </Link>
-            ))}
+            )}
+
+            {rest.length > 0 && (
+              <>
+                <h2 className="mt-16 font-mono text-label uppercase text-ink-faint">
+                  Artikel terbaru
+                </h2>
+                <div className="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2">
+                  {rest.map((post) => (
+                    <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
+                      <div className="relative aspect-[3/2] overflow-hidden bg-neutral-50">
+                        <Image
+                          src={post.image}
+                          alt={post.coverAlt}
+                          fill
+                          sizes="(min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                      </div>
+                      <p className="mt-4 font-mono text-label uppercase text-ink-faint">
+                        {post.category} · {post.readingTime} menit
+                      </p>
+                      <h3 className="mt-2 text-body font-medium text-balance transition-colors duration-150 group-hover:text-accent">
+                        {post.title}
+                      </h3>
+                      <p className="mt-2 text-body text-ink-muted">{post.excerpt}</p>
+                      <p className="mt-3 text-label text-ink-faint">
+                        {post.displayDate}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+
+      <Footer />
+    </>
   )
 }

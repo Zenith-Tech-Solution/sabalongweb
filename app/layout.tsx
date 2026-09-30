@@ -1,85 +1,78 @@
 import type { Metadata } from "next";
-import { Poppins, Pixelify_Sans, } from "next/font/google";
+import { Instrument_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import AosProvider from "@/components/Aos";
-import Script from "next/script";
+import Reveal from "@/components/Reveal";
+import { site, absoluteUrl } from "@/lib/site";
 
-const poppins = Poppins({
-  subsets: ['latin'],
-  weight: ["400", "600", "700"],
-  variable: '--font-poppins'
-})
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
-const pixelify = Pixelify_Sans({
-  variable: '--font-pixelify'
-})
-
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sabalongweb.vercel.app"),
+  metadataBase: new URL(site.url),
   title: {
-    default: "SabalongWeb - Jasa Pembuatan Website Profesional di Sumbawa Besar, NTB",
-    template: "%s | SabalongWeb",
+    default: site.title,
+    template: site.titleTemplate,
   },
-  description: "Jasa pembuatan website profesional di Sumbawa Besar, Nusa Tenggara Barat. Landing page, company profile, toko online, UI/UX design, SEO, dan maintenance website. Mulai dari Rp350K!",
-  keywords: ["jasa pembuatan website", "pembuatan website", "Sumbawa Besar", "NTB", "Nusa Tenggara Barat", "jasa website murah", "landing page", "company profile", "toko online", "UI/UX design", "jasa SEO"],
+  description: site.description,
+  keywords: [...site.keywords],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "SabalongWeb - Jasa Pembuatan Website Profesional di Sumbawa Besar",
-    description: "Jasa pembuatan website profesional di Sumbawa Besar, NTB. Landing page, company profile, toko online, UI/UX design, dan maintenance. Mulai dari Rp350K!",
-    url: "https://sabalongweb.vercel.app",
-    siteName: "SabalongWeb",
-    locale: "id_ID",
     type: "website",
-    images: [
-      {
-        url: "/logo-sabalong.png",
-        width: 800,
-        height: 600,
-        alt: "SabalongWeb - Jasa Pembuatan Website",
-      },
-    ],
+    siteName: site.name,
+    locale: site.locale,
+    url: "/",
+    title: site.title,
+    description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: "SabalongWeb - Jasa Pembuatan Website Profesional di Sumbawa Besar",
-    description: "Jasa pembuatan website profesional di Sumbawa Besar, NTB. Mulai dari Rp350K!",
-    images: ["/logo-sabalong.png"],
+    title: site.title,
+    description: site.description,
   },
   robots: {
     index: true,
     follow: true,
   },
-  alternates: {
-    canonical: "https://sabalongweb.vercel.app",
-  },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "SabalongWeb",
-  description: "Jasa pembuatan website profesional di Sumbawa Besar, NTB. Landing page, company profile, toko online, UI/UX design, SEO, dan maintenance.",
-  url: "https://sabalongweb.vercel.app",
-  telephone: "+6283824425487",
-  email: "sabalongweb@gmail.com",
+  "@type": "ProfessionalService",
+  name: site.name,
+  description: site.description,
+  url: site.url,
+  telephone: `+${site.contact.waNumber}`,
+  email: site.contact.email,
+  image: absoluteUrl("/logo-sabalong.png"),
+  logo: absoluteUrl("/logo-sabalong.png"),
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Sumbawa Besar",
-    addressRegion: "Nusa Tenggara Barat",
-    addressCountry: "ID",
+    addressLocality: site.business.address.locality,
+    addressRegion: site.business.address.region,
+    addressCountry: site.business.address.country,
   },
-  priceRange: "Rp350K - Rp2,5JT",
-  image: "https://sabalongweb.vercel.app/logo-sabalong.png",
-  sameAs: [
-    "https://wa.me/6283824425487",
-    "https://sabalongweb.vercel.app",
-  ],
-  openingHours: "Mo-Su 08:00-22:00",
+  priceRange: site.business.priceRange,
   areaServed: {
-    "@type": "City",
-    name: "Sumbawa Besar",
-    sameAs: "https://en.wikipedia.org/wiki/Sumbawa_Besar",
+    "@type": "AdministrativeArea",
+    name: site.business.areaServed,
   },
+  openingHours: site.business.openingHours,
+  sameAs: [
+    site.url,
+    `https://wa.me/${site.contact.waNumber}`,
+    `mailto:${site.contact.email}`,
+  ],
 };
 
 export default function RootLayout({
@@ -89,22 +82,29 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="id"
-      className={`${poppins.variable} ${pixelify.variable} h-full antialiased`}
+      lang={site.lang}
+      className={`${instrumentSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <meta name="google-site-verification" content="oR1vFDbIf-85CemIwzQupghHx1F07kWTM9UCqgzdTG8" />
+        <meta
+          name="google-site-verification"
+          content="oR1vFDbIf-85CemIwzQupghHx1F07kWTM9UCqgzdTG8"
+        />
       </head>
-      <AosProvider>
-      <body className="min-h-full flex flex-col">
-        <Script
-          id="json-ld-local-business"
+      <body className="flex min-h-full flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:focus:bg-accent focus:px-6 focus:py-3 focus:text-body focus:text-white"
+        >
+          Lewati ke konten
+        </a>
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Reveal />
         {children}
       </body>
-      </AosProvider>
     </html>
   );
 }

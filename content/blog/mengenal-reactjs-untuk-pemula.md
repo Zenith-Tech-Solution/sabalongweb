@@ -1,8 +1,11 @@
 ---
 title: "Mengenal ReactJS: Framework JavaScript untuk Membangun UI Modern"
-date: "19 Juni 2026"
+date: "2026-06-19"
 excerpt: "Pelajari apa itu ReactJS, kenapa populer, dan bagaimana memulainya. Panduan lengkap untuk pemula yang ingin belajar React."
 image: "/blog-reactjs.jpg"
+coverAlt: "Ilustrasi antarmuka web yang dibangun dengan ReactJS"
+category: "Teknologi"
+featured: true
 tags: ["ReactJS", "JavaScript", "Frontend"]
 author: "SabalongWeb"
 ---
@@ -113,4 +116,4 @@ React mungkin **tidak cocok** untuk:
 
 ReactJS adalah skill yang sangat berharga untuk dikuasai di tahun 2026. Dengan permintaan pasar yang tinggi dan ekosistem yang matang, belajar React adalah investasi karir yang tepat.
 
-Tim SabalongWeb menggunakan React dan Next.js untuk membangun website modern yang cepat, interaktif, dan SEO-friendly. [Konsultasi gratis](https://wa.me/6283824425487) untuk kebutuhan website Anda!
+Tim SabalongWeb menggunakan React dan Next.js untuk membangun website modern yang cepat, interaktif, dan SEO-friendly. [Konsultasi gratis](https://wa.me/6283162564970) untuk kebutuhan website Anda!

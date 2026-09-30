@@ -1,139 +1,555 @@
 @import "tailwindcss";
 
+/* This site is light-only. Tailwind v4 ships a default `dark` variant driven by
+   `prefers-color-scheme`, so deleting our custom variant would silently turn
+   that media query back on and any stray `dark:` class would follow the visitor's
+   OS instead of doing nothing. Pointing it at a selector that cannot match makes
+   accidental use an inert no-op rather than a light-lock bug. */
+@custom-variant dark (&:where(:not(*)));
+
+/* ==========================================================================
+   Design tokens — inertiajs.com house style.
+   Instrument Sans + Geist Mono, one brand blue, neutral hairline grid.
+
+   Rules this file encodes:
+   - Blue-600 is the ONLY brand colour. It appears on the nav, the hero, the
+     section eyebrows, and the primary button. Nothing else.
+   - The page is a neutral-200 hairline grid: sections share a max-w-screen-xl
+     container with 1px side borders, and feature cells are separated by
+     divide-x rather than by gaps and floating cards.
+   - Display type is tight (tracking-tighter) and light (400). Weight is spent
+     on small labels and numbers, not on headings.
+   - Corner "small squares" (8px, -4px offset) mark the joints of the grid.
+     They are the signature detail of the whole layout.
+   ========================================================================== */
+
 @theme {
-    --color-primary: #6367FF;
-    --text-primary: #6367FF;
-    --font-poppins: Poppins, sans-serif;
-    --font-pixelify: "Pixelify Sans", sans-serif;
+    /* -- Typography --------------------------------------------------------- */
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system,
+        "Segoe UI", sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SF Mono", "Cascadia Code", monospace;
+
+    /* Display — hero. 36px on a phone, 60px on desktop. */
+    --text-display: clamp(2.25rem, 1.4rem + 3.6vw, 3.75rem);
+    --text-display--line-height: 1.1;
+    --text-display--letter-spacing: -0.035em;
+
+    /* Section head. */
+    --text-section: clamp(1.875rem, 1.2rem + 2.9vw, 3.75rem);
+    --text-section--line-height: 1.1;
+    --text-section--letter-spacing: -0.03em;
+
+    /* Lead — the one sentence under a heading. Fluid so it does not jump from
+       20px to 20px and then suddenly own the line on a wide screen. */
+    --text-lead: clamp(1.0625rem, 0.95rem + 0.5vw, 1.25rem);
+    --text-lead--line-height: 1.5;
+
+    /* Body. The 16px floor also keeps iOS from zooming on focus. */
+    --text-body: 1rem;
+    --text-body--line-height: 1.6;
+
+    /* Label — mono, used for stats, eyebrows, and meta. */
+    --text-label: 0.75rem;
+    --text-label--line-height: 1.4;
+    --text-label--letter-spacing: 0.04em;
+
+    /* -- Color ---------------------------------------------------------------
+       Brand is the logo's own purple, #6060F0 — 88% of the pixels in
+       logo-sabalong.png. It was measured before it was adopted, not eyeballed:
+
+         #6060F0  4.74:1 vs white  -> PASSES AA as a button fill AND as link text
+         #4848B4  7.34:1 vs white  -> hover, and any small text on a tint
+
+       So one brand colour covers both roles and no darkened stand-in is needed.       The palette's own #3A86FF measured only 3.48:1 on white, which is why it
+       is not the primary: it is a different hue from the logo and it fails AA.
+
+       The four pastels sit at 1.05-1.91 against white, so they are washes and
+       fills only and never carry text. */
+    --color-ink: #1b1b18;             /* primary text */
+    --color-ink-muted: #6b6b66;       /* secondary text */
+    --color-ink-faint: #a3a3a0;       /* meta, timestamps, ref ids */
+
+    --color-canvas: #ffffff;          /* page */
+    --color-surface: #fafafa;         /* neutral-50 band */
+
+    /* Every hairline on the site. */
+    --color-line: #e5e5e5;            /* neutral-200 */
+    --color-line-strong: #d4d4d4;     /* neutral-300 */
+    --color-dot: #eaeaea;             /* the dot field behind a heading */
+
+    --color-brand: #6060f0;           /* logo purple — 4.74:1 on white */
+    --color-brand-deep: #4848b4;      /* 7.34:1 — hover, small text on tints */
+    --color-lavender: #bdb2ff;        /* palette purple, mid tint */
+    --color-brand-tint: #efeffd;      /* 90% toward white — section wash */
+
+    /* Fills that carry white text, versus brand used AS text. These cannot be
+       the same token: #6060F0 is 4.74:1 against white, but a lighter
+       brand-as-text is unusable as a fill (white on #9D9DFF is only 2.41:1).
+       So `bg-brand-solid` is the fill token and `--color-brand` the text one. */
+    --color-brand-solid: #6060f0;
+
+    --color-cream: #fffbd6;
+    --color-rose: #ffbdd6;
+    --color-mint: #e0fff4;
+    --color-blush: #fff4f4;
+
+    /* Aliases so components do not all need renaming. */
+    --color-accent: var(--color-brand);
+    --color-accent-hover: var(--color-brand-deep);
+
+    /* -- Radius --------------------------------------------------------------
+       Two values. `rounded-3xl` (24px) for buttons — the pill CTA. `rounded-xl`
+       (12px) for the framed panels. `rounded-2xl` for the browser mockups. */
+    --radius-field: 6px;
+    --radius-card: 12px;
+
+    /* -- Elevation -----------------------------------------------------------
+       One shadow, for the framed panel that breaks out of the hero. */
+    --shadow-panel: 0 6px 14px oklch(30% 0.245 262.881 / 0.05),
+        0 25px 25px oklch(30% 0.245 262.881 / 0.04),
+        0 56px 33px oklch(30% 0.245 262.881 / 0.02);
+
+    /* -- Z-index -------------------------------------------------------------
+       Tailwind v4 has no `--z-*` theme namespace, so a custom token here emits
+       nothing and the class silently resolves to `z-index: auto`. The nav and
+       the skip link use the built-in numeric scale directly. */
 }
 
-html {
-    scroll-behavior: smooth;
+
+
+@layer base {
+    :root {
+        /* Pinned light. Without it a visitor whose OS is in dark mode still gets
+           a dark scrollbar, dark form controls, and a dark autofill dropdown on
+           a light page. */
+        color-scheme: light;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        /* Clears the floating nav, which now ends at 5rem (1rem inset + 4rem
+           bar) rather than at the viewport edge. */
+        scroll-padding-top: 6rem;
+        font-synthesis: none;
+        /* Must be on the root, not just body: the viewport takes its overflow
+           from `html`, so a `clip` on body alone still leaves a few px of
+           sideways scroll from the decorative overhangs below. `clip` rather
+           than `hidden` so no scroll container is created and `sticky` still
+           works. */
+        overflow-x: clip;
+    }
+
+    body {
+        background-color: var(--color-canvas);
+        color: var(--color-ink);
+        font-family: var(--font-sans);
+        overflow-x: clip;
+    }
+
+    h1, h2, h3, h4 {
+        text-wrap: balance;
+        font-weight: 400;
+    }
+
+    h1 {
+        font-size: var(--text-display);
+        line-height: var(--text-display--line-height);
+        letter-spacing: var(--text-display--letter-spacing);
+    }
+
+    h2 {
+        font-size: var(--text-section);
+        line-height: var(--text-section--line-height);
+        letter-spacing: var(--text-section--letter-spacing);
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+    }
+
+    p, li, dd {
+        text-wrap: pretty;
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary {
+        list-style: none;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+    }
+
+    :focus:not(:focus-visible) {
+        outline: none;
+    }
+
+    /* A single focus treatment on the blue nav, where the blue ring is invisible. */
+    .on-brand :focus-visible {
+        outline-color: #fff;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/* ==========================================================================
+   Layout primitives — the shared grid this whole site is built on.
+   ========================================================================== */
+
+/* The vertical rule pair every section shares. One column, full height. */
+@utility section-container {
+    margin-inline: auto;
+    max-width: 80rem; /* max-w-screen-xl */
+    border-inline: 1px solid var(--color-line);
+}
+
+/* Section rhythm, in one place. The old values were 112px/176px of top padding
+   per band, which read as gaps rather than as spacing — the eye has to cross
+   empty space to get from one grid to the next. These are 64/80/96: enough to
+   separate, short enough that consecutive sections still feel like one page. */
+@utility section-pad {
+    padding-block: 3rem;
+    @media (min-width: 768px) {
+        padding-block: 3.5rem;
+    }
+    @media (min-width: 1024px) {
+        padding-block: 4rem;
+    }
+}
+
+/* Heading block to its grid. Tight on purpose: the heading already has its own
+   internal spacing, so a large gap after it read as a second heading. */
+@utility section-gap {
+    margin-top: 2rem;
+    @media (min-width: 768px) {
+        margin-top: 2.5rem;
+    }
+}
+
+/* The 8px white square that sits on a grid joint, offset so half of it
+   overlaps the border. Marks intersections; there are no shadows doing this. */
+@utility small-square {
+    position: absolute;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 2px;
+    border: 1px solid var(--color-line);
+    background-color: #fff;
+}
+
+@utility square-tl { top: -4px; left: -4px; }
+@utility square-bl { bottom: -4px; left: -4px; }
+@utility square-tr { top: -4px; right: -4px; }
+@utility square-br { bottom: -4px; right: -4px; }
+
+/* Dot field behind the section headings, faded out radially so it only reads
+   near the centre. */
+@utility bg-points {
+    /* Token, not a literal: #eaeaea on white is a whisper, and the same
+       literal on a near-black canvas would be a glaring grid. */
+    background-image: radial-gradient(circle, var(--color-dot) 10%, transparent 12%);
+    background-size: 16px 16px;
+}
+
+@utility fade-points {
+    -webkit-mask-image: radial-gradient(circle at center, #000 20%, transparent 75%);
+    mask-image: radial-gradient(circle at center, #000 20%, transparent 75%);
+}
+
+/* ==========================================================================
+   Motion — MOTION_INTENSITY 3.
+   One entrance: a 5px blur-up, staggered by a CSS delay. No scroll listener,
+   no IntersectionObserver, no animation library — the delays are static
+   because the hero is above the fold by definition.
+   ========================================================================== */
+
+@keyframes blur-up {
+    from {
+        opacity: 0;
+        transform: translateY(5%);
+        filter: blur(5px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+    }
+}
+
+@utility blur-up {
+    animation: blur-up 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--delay, 0s);
+}
+
+/* -- Drawer ----------------------------------------------------------------
+   The panel grows out of the burger into a full-height sheet rather than
+   sliding in from the edge, so the control you tapped is the thing that
+   becomes the menu. `transform-origin: top right` puts that pivot exactly on
+   the burger, and the small scale it starts from roughly matches the button.
+
+   The links then arrive one at a time, staggered by an inline `--i` index.
+   `both` fill matters: without it the delayed rows would render visible for
+   one frame before their animation starts. */
+@keyframes drawer-grow {
+    from {
+        opacity: 0;
+        transform: scale(0.24);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes drawer-item {
+    from {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@utility drawer-panel {
+    animation: drawer-grow 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    transform-origin: top right;
+}
+
+@utility drawer-item {
+    animation: drawer-item 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(90ms + var(--i, 0) * 34ms);
+}
+
+/* One place to opt out of both, for anyone who asked their OS to reduce
+   motion. Without this the drawer still animates for those visitors. The
+   marquee is handled separately: react-fast-marquee takes a `playOnReverse`
+   and we pass `pauseOnHover`, but motion is the whole point of the component,
+   so the media query pauses it outright rather than shortening it. */
+@media (prefers-reduced-motion: reduce) {
+    .drawer-panel,
+    .drawer-item {
+        animation: none;
+    }
+}
+
+/* -- Liquid glass ---------------------------------------------------------
+   Four layers, and the order is the whole trick: blurred backdrop, translucent
+   fill, light 1px edge, then an inset top highlight. The inset highlight is what
+   sells it — a fill without one just reads as flat translucency, because there
+   is nothing for the light to catch. The blur is what makes the purple hero show
+   through the surface, so the panel looks lit by the page rather than pasted
+   onto it. */
+@utility glass {
+    background-color: color-mix(in oklab, var(--color-surface) 55%, transparent);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid color-mix(in oklab, #fff 45%, transparent);
+    box-shadow:
+        inset 0 1px 0 0 rgb(255 255 255 / 0.6),
+        0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+/* -- Pixel vignette -------------------------------------------------------
+   The reference site draws its hero field on a canvas at runtime. Same read,
+   none of the cost: a repeating dot grid, faded out by a radial mask so the
+   squares are dense in the middle and gone at the edges. Two layers of grid at
+   different sizes stop the pattern from moiréing against the pixel grid, and
+   the whole thing is one composited background — no JS, no repaint on scroll.
+
+   `--tint` is the dot colour. On the purple hero it wants a light tint; on the
+   white maintenance page it wants a dark one, which is why it is a variable
+   rather than hardcoded. */
+@utility pixel-vignette {
+    --tint: rgb(255 255 255 / 0.5);
+    --cell: 22px;
+
+    background-image:
+        radial-gradient(var(--tint) 1.5px, transparent 1.6px),
+        radial-gradient(var(--tint) 1px, transparent 1.1px);
+    background-size:
+        var(--cell) var(--cell),
+        calc(var(--cell) / 2) calc(var(--cell) / 2);
+    background-position:
+        0 0,
+        calc(var(--cell) / 4) calc(var(--cell) / 4);
+
+    /* The vignette. Opaque at the centre, fully transparent well before the
+       edges, so the grid never draws a hard rectangle around the content. */
+    mask-image: radial-gradient(
+        ellipse 70% 60% at 50% 45%,
+        #000 0%,
+        rgb(0 0 0 / 0.55) 45%,
+        transparent 78%
+    );
+}
+
+/* Pointer-only affordances. A touch device never fires :hover, so a sticky
+   hover state there is a bug, not a nicety. */
+@media (hover: hover) and (pointer: fine) {
+    .hover-cell:hover {
+        background-color: var(--color-surface);
+    }
+}
+
+/* ==========================================================================
+   Blog article body — styles the raw HTML emitted by `marked`.
+   18px is the floor for sustained reading; 16px is for UI, not for an article.
+   ========================================================================== */
+
+.blog-content {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--color-ink);
+}
+
+.blog-content > * + * {
+    margin-top: 1.25rem;
 }
 
 .blog-content h2 {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-    color: #FFDBFD;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    margin-top: 3rem;
+    margin-bottom: 0;
 }
 
 .blog-content h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-top: 2rem;
-    margin-bottom: 0.75rem;
-    color: #FFDBFD;
+    font-size: 1.1875rem;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    margin-top: 2.25rem;
+    margin-bottom: 0;
 }
 
-.blog-content p {
-    color: rgba(255, 219, 253, 0.8);
-    line-height: 1.625;
-    margin-bottom: 1rem;
+.blog-content p,
+.blog-content li {
+    color: var(--color-ink);
 }
 
 .blog-content ul,
 .blog-content ol {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-    color: rgba(255, 219, 253, 0.8);
+    padding-left: 1.35rem;
 }
 
 .blog-content ul {
-    list-style-type: disc;
+    list-type: disc;
 }
 
 .blog-content ol {
-    list-style-type: decimal;
+    list-type: decimal;
 }
 
-.blog-content li {
-    font-size: 0.875rem;
-    line-height: 1.625;
-    margin-bottom: 0.25rem;
+.blog-content li::marker {
+    color: var(--color-ink-muted);
 }
 
 .blog-content strong {
     font-weight: 600;
-    color: #FFDBFD;
 }
 
 .blog-content a {
-    color: #FFDBFD;
+    color: var(--color-accent);
     text-decoration: underline;
-    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--color-line-strong);
 }
 
 .blog-content a:hover {
-    opacity: 0.8;
+    text-decoration-color: currentColor;
 }
 
 .blog-content blockquote {
-    border-left: 4px solid rgba(255, 219, 253, 0.3);
-    padding-left: 1rem;
-    font-style: italic;
-    color: rgba(255, 219, 253, 0.7);
-    margin: 1.5rem 0;
+    border-left: 1px solid var(--color-line-strong);
+    padding-left: 1.25rem;
+    color: var(--color-ink-muted);
+    margin-block: 2rem;
 }
 
 .blog-content pre {
-    background: rgba(255, 219, 253, 0.08);
-    padding: 1rem;
+    background: var(--color-surface);
+    padding: 1.125rem;
     overflow-x: auto;
-    margin: 1.5rem 0;
-    border: 1px solid rgba(255, 219, 253, 0.15);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+    font-size: 0.9375rem;
+    line-height: 1.6;
 }
 
 .blog-content code {
-    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
 }
 
 .blog-content pre code {
     background: none;
     padding: 0;
-    color: #FFDBFD;
+    font-size: inherit;
 }
 
 .blog-content p code,
-.blog-content li code {
-    background: rgba(255, 219, 253, 0.1);
-    padding: 0.125rem 0.375rem;
-    color: #FFDBFD;
+.blog-content li code,
+.blog-content td code {
+    background: var(--color-surface);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
 }
 
 .blog-content table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1.5rem 0;
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
+    display: block;
+    overflow-x: auto;
 }
 
 .blog-content th,
 .blog-content td {
-    border: 1px solid rgba(255, 219, 253, 0.2);
-    padding: 0.75rem;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.75rem 1rem 0.75rem 0;
     text-align: left;
+    vertical-align: top;
 }
 
 .blog-content th {
-    font-weight: 600;
-    background: rgba(255, 219, 253, 0.08);
-    color: #FFDBFD;
+    font-weight: 500;
+    color: var(--color-ink);
+    white-space: nowrap;
 }
 
 .blog-content td {
-    color: rgba(255, 219, 253, 0.8);
+    color: var(--color-ink-muted);
 }
 
 .blog-content hr {
     border: none;
-    border-top: 1px solid rgba(255, 219, 253, 0.2);
-    margin: 2rem 0;
+    border-top: 1px solid var(--color-line);
+    margin-block: 3rem;
 }
 
 .blog-content img {
     max-width: 100%;
     height: auto;
-    margin: 1.5rem 0;
+    border-radius: var(--radius-card);
+    margin-block: 2rem;
 }
