@@ -28,7 +28,7 @@ import { comments, type Comment } from "@/lib/content"
  */
 function Card({ comment }: { comment: Comment }) {
   return (
-    <figure className="mx-2.5 flex h-full w-[24rem] max-w-[80vw] shrink-0 grow-0 flex-col rounded-lg border border-neutral-200 bg-surface p-6 sm:w-[28rem] sm:max-w-none">
+    <figure className="mx-2.5 flex h-full w-[24rem] max-w-[80vw] shrink-0 grow-0 flex-col rounded-lg border border-neutral-300 bg-canvas p-6 shadow-sm sm:w-[28rem] sm:max-w-none">
       <LuQuote aria-hidden className="mb-3 shrink-0 text-brand" size={20} />
 
       <blockquote className="flex-1 text-[15px] leading-relaxed text-neutral-700">
@@ -81,7 +81,7 @@ export default function CommentMarquee() {
       speed={45}
       direction={reverse ? "right" : "left"}
       gradient
-      gradientColor="rgb(255 255 255)"
+      gradientColor="rgb(239 239 253)"
       className="overflow-hidden"
       onMount={trackReady}
     >

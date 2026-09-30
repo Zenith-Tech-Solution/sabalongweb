@@ -192,7 +192,16 @@ export default function App() {
         {/* Closing CTA on the lightest brand tint, so the dark text stays
             readable and the purple button still has a 4.74:1 boundary. */}
         <section className="on-brand section-container relative flex flex-col items-center justify-center bg-brand-tint section-pad text-center">
-          <div className="max-md:mx-10">
+          {/* Comment cards sit at the very top of the closing CTA, ahead of the
+              ask. No panel: white cards on the brand tint carry their own
+              contrast on their own, and the marquee's side fades dissolve
+              straight into that tint — which is why `gradientColor` in
+              CommentMarquee matches it. */}
+          <div className="w-full">
+            <CommentMarquee />
+          </div>
+
+          <div className="mt-12 w-full max-md:mx-10 md:mt-16">
             <h2 className="text-neutral-900">
               Ceritakan dulu kebutuhannya, belum perlu deal
             </h2>
@@ -215,17 +224,6 @@ export default function App() {
               >
                 Kirim email
               </a>
-            </div>
-          </div>
-
-          {/* The comment cards sit inside the closing CTA, below the ask. The
-              panel is white on the brand tint so it reads as a held object
-              rather than more of the CTA band, and its padding is what the
-              marquee's side fades dissolve into — which is why
-              `gradientColor` in CommentMarquee matches this surface. */}
-          <div className="mt-12 w-full md:mt-16">
-            <div className="rounded-xl border border-line bg-canvas p-4 md:p-6">
-              <CommentMarquee />
             </div>
           </div>
         </section>
