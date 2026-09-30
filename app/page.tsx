@@ -4,7 +4,6 @@ import Footer from "@/components/Footer"
 import Pricing from "@/components/Pricing"
 import Faq from "@/components/Faq"
 import ContactForm from "@/components/ContactForm"
-import CommentMarquee from "@/components/CommentMarquee"
 import SectionHeading from "@/components/SectionHeading"
 import { services, processSteps, portfolio } from "@/lib/content"
 import { site } from "@/lib/site"
@@ -39,19 +38,6 @@ export default function App() {
 
       <main id="main" className="flex-1">
         <Hero />
-
-        {/* Client quotes sit between the hero and the stats band — the one strip
-            that bridges the ask and the proof, so neither has to carry the
-            weight alone. It keeps the hero purple on purpose: white cards on
-            white measured a 1.04 contrast and vanished, and on brand purple
-            the label sits at 7.34. That same purple is what `gradientColor` in
-            CommentMarquee fades into, so the rows dissolve instead of ending on
-            a hard edge. */}
-        <section className="bg-brand-solid px-4 pb-20">
-          <div className="mx-auto max-w-screen-xl">
-            <CommentMarquee />
-          </div>
-        </section>
 
         {/* Stats: a four-cell hairline grid, no heading. The padding is the
             section's own rhythm now — it used to be `pt-24` because the hero

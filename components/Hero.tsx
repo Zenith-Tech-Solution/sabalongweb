@@ -1,4 +1,5 @@
 import Link from "next/link"
+import CommentMarquee from "@/components/CommentMarquee"
 import { site } from "@/lib/site"
 
 /**
@@ -85,6 +86,14 @@ export default function Hero() {
           >
             Lihat harga
           </Link>
+        </div>
+
+        {/* Client quotes sit under the ask, inside the hero. White cards on
+            brand purple keep the label at 7.34 — on a white band the same
+            cards measured 1.04 against it and disappeared, which is also why
+            `gradientColor` in CommentMarquee is this purple and not white. */}
+        <div className="mt-16 w-full md:mt-20">
+          <CommentMarquee />
         </div>
 
       </div>
