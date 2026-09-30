@@ -8,6 +8,14 @@ import { comments, type Comment } from "@/lib/content"
 /**
  * Testimonial cards scrolling sideways in a single full-bleed row.
  *
+ * The cards are flat and butted together — no corner radius, no shadow, no gap
+ * between them — with each one carrying a right border. That is what makes the
+ * strip read as one continuous ruled band rather than a pile of separate
+ * tiles, and it is why the card keeps `border-r` rather than a full border: two
+ * adjacent borders would read as a 2px seam. The rules are `neutral-200` to
+ * match the stats grid below, so where the strip meets that grid the two lines
+ * are one line instead of two different greys stacked on each other.
+ *
  * `pauseOnHover` is the affordance that matters most: a moving wall of text is
  * unreadable for anyone who needs to read at their own pace, and WCAG 2.2.2
  * (Pause, Stop, Hide) requires the ability to pause auto-updating motion.
@@ -23,7 +31,7 @@ import { comments, type Comment } from "@/lib/content"
  */
 function Card({ comment }: { comment: Comment }) {
   return (
-    <figure className="mx-2.5 flex h-full w-[24rem] max-w-[80vw] shrink-0 grow-0 flex-col rounded-lg border border-neutral-300 bg-canvas p-6 shadow-sm sm:w-[28rem] sm:max-w-none">
+    <figure className="flex h-full w-[24rem] max-w-[80vw] shrink-0 grow-0 flex-col border-y border-r border-neutral-200 bg-canvas p-6 sm:w-[28rem] sm:max-w-none">
       <LuQuote aria-hidden className="mb-3 shrink-0 text-brand" size={20} />
 
       <blockquote className="flex-1 text-[15px] leading-relaxed text-neutral-700">
@@ -74,7 +82,7 @@ export default function CommentMarquee() {
           only once the marquee confirms it is rendering, so a screen reader
           never hears the same testimonial twice. */}
       <div aria-hidden={mounted} hidden={mounted}>
-        <div className="flex gap-2.5 overflow-hidden">
+        <div className="flex overflow-hidden">
           {comments.map((c) => (
             <Card key={c.name} comment={c} />
           ))}
@@ -87,8 +95,6 @@ export default function CommentMarquee() {
         pauseOnHover
         speed={45}
         direction="left"
-        gradient
-        gradientColor="rgb(96 96 240)"
         className="rfm-cards overflow-hidden"
         onMount={() => setMounted(true)}
       >

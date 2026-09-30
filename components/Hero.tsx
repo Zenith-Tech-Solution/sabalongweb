@@ -90,11 +90,10 @@ export default function Hero() {
 
         {/* Client quotes sit under the ask, inside the hero, full-bleed. White
             cards on brand purple keep the quote text at 7.34 — on a white band
-            the same cards measured 1.04 against it and disappeared, which is
-            also why `gradientColor` in CommentMarquee is this purple and not
-            white. The padding is even on both sides so the strip does not sit
-            jammed against the buttons above it or the colour break below it. */}
-        <div className="mt-12 w-full pb-14 md:mt-16 md:pb-20">
+            the same cards measured 1.04 against it and disappeared. No bottom
+            padding: the strip's bottom rule has to land on the stats grid's top
+            rule so the two read as one panel, and that only holds flush. */}
+        <div className="mt-12 w-full md:mt-16">
           <CommentMarquee />
         </div>
       </div>

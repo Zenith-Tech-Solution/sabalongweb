@@ -39,8 +39,12 @@ export default function App() {
       <main id="main" className="flex-1">
         <Hero />
 
-        {/* Stats: a four-cell hairline grid, no heading. */}
-        <section className="bg-canvas pt-16 pb-16">
+        {/* Stats: a four-cell hairline grid, no heading. `pt-0` is the join —
+            the grid's top rule has to meet the quote strip's bottom rule at the
+            colour break with nothing in between, which is the whole point of
+            putting the cards here. `pb-16` still gives the band its own rhythm
+            before the services section. */}
+        <section className="bg-canvas pt-0 pb-16">
           <div className="section-container">
             <div
               data-reveal-group
