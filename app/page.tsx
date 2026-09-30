@@ -217,27 +217,15 @@ export default function App() {
               </a>
             </div>
           </div>
-        </section>
 
-        {/* Testimonials sit after the closing CTA, not before it. Ending on the
-            ask is what makes the ask work — a marquee in between would put the
-            last thing a visitor reads between them and the button. */}
-        <section className="relative overflow-hidden bg-canvas section-pad">
-          <div className="section-container relative">
-            <SectionHeading
-              eyebrow="Testimoni"
-              title="Kata mereka yang sudah pernah pakai"
-              lead="Tiga sampai empat kalimat dari klien, apa adanya."
-            />
-
-            <div className="relative z-2 mt-8 md:mt-10">
-              {/* The marquee is boxed rather than bled to the viewport edge, so
-                  the cards read as a held panel instead of a table. Padding
-                  here is what the marquee's side fades dissolve into, which is
-                  why `gradientColor` in CommentMarquee matches this surface. */}
-              <div className="rounded-xl border border-line bg-canvas p-4 md:p-6">
-                <CommentMarquee />
-              </div>
+          {/* The comment cards sit inside the closing CTA, below the ask. The
+              panel is white on the brand tint so it reads as a held object
+              rather than more of the CTA band, and its padding is what the
+              marquee's side fades dissolve into — which is why
+              `gradientColor` in CommentMarquee matches this surface. */}
+          <div className="mt-12 w-full md:mt-16">
+            <div className="rounded-xl border border-line bg-canvas p-4 md:p-6">
+              <CommentMarquee />
             </div>
           </div>
         </section>
