@@ -75,10 +75,10 @@ export default async function OpengraphImage() {
               fontSize: 22,
             }}
           >
-            Mulai dari Rp350K
+            Mulai dari Rp350 rb
           </div>
           <div style={{ fontSize: 22, opacity: 0.8 }}>
-            {site.business.areaServed}
+            Website untuk bisnis Anda
           </div>
         </div>
       </div>

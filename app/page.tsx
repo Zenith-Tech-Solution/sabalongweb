@@ -16,10 +16,10 @@ import { site } from "@/lib/site"
  */
 
 const stats = [
-  { label: "Harga mulai", value: "Rp350K" },
-  { label: "Landing page", value: "3–5 hari" },
-  { label: "Domain + hosting", value: "1 tahun" },
-  { label: "Dibangun dari nol", value: "100%" },
+  { label: "Harga mulai", value: "Rp350 rb" },
+  { label: "Pengerjaan landing page", value: "3-5 hari" },
+  { label: "Domain dan hosting", value: "1 tahun" },
+  { label: "Dibuat dari nol", value: "100%" },
 ]
 
 function Squares() {
@@ -74,15 +74,15 @@ export default function App() {
 
           <SectionHeading
             eyebrow="Layanan"
-            title="Empat hal yang kami kerjakan"
-            lead="Setiap paket punya hasil yang jelas. Anda tahu apa yang diterima sebelum proyek dimulai, bukan setelah invoice pertama."
+            title="Empat layanan untuk kebutuhan digital Anda"
+            lead="Setiap paket punya hasil yang jelas, jadi Anda sudah tahu apa yang akan diterima sebelum proyek dimulai."
           />
 
           <div data-reveal-group className="relative z-2 mx-auto section-gap grid max-w-screen-xl grid-cols-1 divide-x divide-neutral-200 border-neutral-200 border-y md:grid-cols-2">
             {services.map((service) => (
               <article
                 key={service.title}
-                className="hover-cell relative flex flex-col border-b border-neutral-200 p-8 transition-colors duration-200 md:p-10"
+                className="hover-cell relative flex flex-col border-b border-neutral-200 p-6 transition-colors duration-200 md:p-8 md:p-10"
               >
                 <Squares />
                 <h3 className="mb-1 font-semibold text-neutral-900">
@@ -109,15 +109,15 @@ export default function App() {
 
           <SectionHeading
             eyebrow="Proses"
-            title="Lima langkah, dan Anda tahu persis apa yang diterima di tiap langkah"
-            lead="Tidak ada tahap yang disembunyikan. Di setiap langkah ada satu barang yang bisa Anda pegang."
+            title="Lima langkah sederhana, dengan hasil nyata di setiap tahap"
+            lead="Prosesnya terbuka dari awal sampai akhir. Di setiap langkah, ada hasil konkret yang bisa Anda lihat dan setujui."
           />
 
           <ol data-reveal-group className="relative z-2 mx-auto section-gap grid max-w-screen-xl grid-cols-1 divide-x divide-neutral-200 border-neutral-200 border-y md:grid-cols-3 lg:grid-cols-5">
             {processSteps.map((step, i) => (
               <li
                 key={step.title}
-                className="hover-cell relative flex flex-col justify-between border-b border-neutral-200 p-8 transition-colors duration-200"
+                className="hover-cell relative flex flex-col justify-between border-b border-neutral-200 p-6 transition-colors duration-200 md:p-8"
               >
                 {i === 0 && <Squares />}
                 <div className="font-mono text-sm tracking-tight text-brand">
@@ -140,8 +140,8 @@ export default function App() {
 
           <SectionHeading
             eyebrow="Portofolio"
-            title="Proyek yang pernah dikerjakan"
-            lead="Klik nama proyeknya untuk membuka situsnya secara langsung. Keempatnya masih hidup sampai hari ini."
+            title="Beberapa proyek yang pernah kami kerjakan"
+            lead="Klik nama proyek untuk membuka situsnya langsung. Keempatnya masih aktif sampai sekarang."
           />
 
           <div data-reveal-group className="relative z-2 mx-auto section-gap grid max-w-screen-xl grid-cols-1 divide-x divide-neutral-200 border-neutral-200 border-y md:grid-cols-2">
@@ -168,7 +168,7 @@ export default function App() {
                       />
                     </div>
                   )}
-                  <div className="flex flex-1 flex-col p-8 md:p-10">
+                  <div className="flex flex-1 flex-col p-6 md:p-10">
                     <span className="font-mono text-sm tracking-tight text-neutral-500 uppercase">
                       {item.category}
                     </span>
@@ -192,26 +192,26 @@ export default function App() {
         {/* Closing CTA on the lightest brand tint, so the dark text stays
             readable and the purple button still has a 4.74:1 boundary. */}
         <section className="on-brand section-container relative flex flex-col items-center justify-center bg-brand-tint section-pad text-center">
-          <div className="w-full max-md:mx-10">
+          <div className="w-full">
             <h2 className="text-neutral-900">
-              Ceritakan dulu kebutuhannya, belum perlu deal
+              Ceritakan dulu kebutuhannya, belum perlu langsung deal
             </h2>
             <p className="mb-5 mt-4 text-neutral-600 md:mb-11 md:text-lg lg:text-xl">
-              Konsultasi pertama gratis dan tidak mengikat. Kami butuh tahu
-              jenis bisnis Anda sebelum kami menyebut angka.
+              Konsultasi pertama gratis dan tanpa kewajiban. Kami cuma perlu
+              tahu jenis bisnis Anda sebelum menyebutkan angka.
             </p>
-            <div className="flex w-full flex-col justify-center gap-2 md:flex-row">
+            <div className="flex w-full flex-col items-center justify-center gap-2 md:flex-row">
               <a
                 href={`https://wa.me/${site.contact.waNumber}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex h-12 items-center justify-center border border-brand bg-brand-solid px-6 text-lg tracking-tight text-white transition-colors duration-300 hover:border-brand-deep hover:bg-brand-deep md:w-auto"
+                className="inline-flex h-12 w-fit max-w-full items-center justify-center border border-brand bg-brand-solid px-6 text-base tracking-tight text-white transition-colors duration-300 hover:border-brand-deep hover:bg-brand-deep sm:px-8 sm:text-lg md:w-auto"
               >
                 Konsultasi WhatsApp
               </a>
               <a
                 href={`mailto:${site.contact.email}`}
-                className="inline-flex h-12 items-center justify-center border border-neutral-200 bg-surface px-6 text-lg tracking-tight text-neutral-800 transition-colors duration-300 hover:bg-neutral-100 md:w-auto"
+                className="inline-flex h-12 w-fit max-w-full items-center justify-center border border-neutral-200 bg-surface px-6 text-base tracking-tight text-neutral-800 transition-colors duration-300 hover:bg-neutral-100 sm:px-8 sm:text-lg md:w-auto"
               >
                 Kirim email
               </a>

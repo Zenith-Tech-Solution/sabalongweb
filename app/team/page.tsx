@@ -5,7 +5,7 @@ import Footer from "@/components/Footer"
 import { team } from "@/lib/content"
 
 export const metadata: Metadata = {
-  title: "Team",
+  title: "Tim",
   description:
     "Tiga founder SabalongWeb: Rzfan03, Azka, dan Rian. Menangani frontend, backend, dan UI/UX langsung.",
   alternates: { canonical: "/team" },

@@ -5,7 +5,7 @@ export default function Maintenance() {
   return (
     <main
       id="main"
-      className="relative flex min-h-screen flex-col items-center justify-center gap-6 overflow-hidden px-6 py-24 text-center"
+      className="relative flex min-h-dvh flex-col items-center justify-center gap-6 overflow-hidden px-6 py-24 text-center"
     >
       {/* The same pixel field as the hero, so the maintenance page still looks
           like this site rather than a bare error screen. Dark tint here: the

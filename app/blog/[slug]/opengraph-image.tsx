@@ -92,12 +92,12 @@ export default async function OpengraphImage({
 
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <div style={{ fontSize: 22, opacity: 0.8 }}>
-            {post?.displayDate ?? site.business.areaServed}
+            {post?.displayDate ?? "Blog SabalongWeb"}
           </div>
           <div style={{ fontSize: 22, opacity: 0.8 }}>
             {post
               ? `${post.readingTime} menit baca`
-              : site.business.areaServed}
+              : "3 menit baca"}
           </div>
         </div>
       </div>

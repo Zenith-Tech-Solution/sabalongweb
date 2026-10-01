@@ -111,8 +111,14 @@ export default function Navbar() {
       {/* The fixed wrapper is invisible: it exists only to inset the bar and
           centre it. `pointer-events-none` is load-bearing — a full-width fixed
           box would otherwise swallow clicks in the 1rem gutter beside the pill
-          and in the strip above it, and there is content there. */}
-      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-4">
+          and in the strip above it, and there is content there.
+          `pt-[max(...)]` is the safe-area floor: on a notched phone the inset
+          is larger than 1rem, and a fixed bar that ignores it sits under the
+          notch. ponytail: top inset only — in landscape the left/right insets
+          are ~44px and this bar's px-4 would still slide under them; add
+          `px-[max(1rem,env(safe-area-inset-left))]` if the site ever goes
+          landscape-first. */}
+      <div className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-[max(1rem,env(safe-area-inset-top))]">
         {/* The bar closes in from both edges because it is centred and its
             max-width shrinks, rather than sliding off one side. */}
         <nav
@@ -124,7 +130,7 @@ export default function Navbar() {
         >
           <Link
             href="/"
-            className="mr-4 inline-flex shrink-0 items-center gap-2 text-base font-medium tracking-tight text-white transition-colors duration-150 hover:text-lavender"
+            className="mr-4 inline-flex min-h-11 shrink-0 items-center gap-2 text-base font-medium tracking-tight text-white transition-colors duration-150 hover:text-lavender"
             onClick={() => setOpen(false)}
           >
             <Image
@@ -173,7 +179,7 @@ export default function Navbar() {
                  brand-filled button had a contrast ratio of 1.00 against it. */
               className="hidden h-10 items-center border border-white bg-white px-4 text-base tracking-tight text-brand-deep transition-colors duration-300 hover:border-lavender hover:bg-lavender md:inline-flex"
             >
-              Mulai Konsultasi
+              Konsultasi Gratis
             </a>
 
             <button
@@ -312,7 +318,7 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 className="flex h-11 items-center justify-center border border-white bg-white px-5 text-base text-brand-deep"
               >
-                Mulai Konsultasi
+                Konsultasi Gratis
               </a>
               <a
                 href={`mailto:${site.contact.email}`}

@@ -88,7 +88,7 @@ export default async function BlogDetail({ params }: Props) {
           <div className="mx-auto max-w-3xl">
             <Link
               href="/blog"
-              className="-mb-1 inline-flex min-h-10 items-center gap-1.5 text-body text-ink-muted transition-colors duration-150 hover:text-ink"
+              className="-mb-1 inline-flex min-h-11 items-center gap-1.5 text-body text-ink-muted transition-colors duration-150 hover:text-ink"
             >
               <LuArrowLeft size={16} aria-hidden />
               Kembali ke Blog

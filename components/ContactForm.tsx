@@ -25,8 +25,7 @@ const categories = [
 const contactRows = [
   { label: "WhatsApp", value: site.contact.waDisplay, href: `https://wa.me/${site.contact.waNumber}` },
   { label: "Email", value: site.contact.email, href: `mailto:${site.contact.email}` },
-  { label: "Wilayah", value: site.business.areaServed },
-  { label: "Jam kerja", value: site.business.openingHours },
+  { label: "Jam kerja", value: site.business.openingHoursLabel },
 ] as const
 
 export default function ContactForm() {
@@ -59,13 +58,13 @@ export default function ContactForm() {
 
       <SectionHeading
         eyebrow="Kontak"
-        title="Ceritakan kebutuhannya"
-        lead="Satu percakapan sudah cukup untuk tahu apakah kami bisa menangani atau perlukah saya bantu. Balasan rata-rata di hari yang sama."
+        title="Ceritakan kebutuhan Anda"
+        lead="Cukup satu percakapan untuk tahu apakah kami cocok dengan kebutuhan Anda. Biasanya kami membalas di hari yang sama."
       />
 
       <div data-reveal-group className="relative z-2 mx-auto section-gap grid max-w-screen-xl grid-cols-1 divide-x divide-neutral-200 border-neutral-200 border-y lg:grid-cols-2">
         {/* Contact details */}
-        <div className="relative p-8 md:p-10">
+        <div className="relative p-6 md:p-10">
           <span className="small-square square-tl" aria-hidden />
           <span className="small-square square-bl" aria-hidden />
 
@@ -79,7 +78,7 @@ export default function ContactForm() {
             />
             <div>
               <p className="font-medium tracking-tight text-neutral-900">{site.name}</p>
-              <p className="text-sm text-neutral-500">{site.business.areaServed}</p>
+              <p className="text-sm text-neutral-500">WhatsApp &amp; email aktif setiap hari</p>
             </div>
           </div>
 
@@ -96,7 +95,7 @@ export default function ContactForm() {
                       href={row.href}
                       target={row.href.startsWith("http") ? "_blank" : undefined}
                       rel="noopener noreferrer"
-                      className="transition-colors duration-150 hover:text-brand"
+                      className="inline-flex min-h-11 items-center transition-colors duration-150 hover:text-brand"
                     >
                       {row.value}
                     </a>
@@ -110,7 +109,7 @@ export default function ContactForm() {
         </div>
 
         {/* Form */}
-        <form onSubmit={onSubmit} className="relative p-8 md:p-10">
+        <form onSubmit={onSubmit} className="relative p-6 md:p-10">
           <span className="small-square square-tr" aria-hidden />
           <span className="small-square square-br" aria-hidden />
 
@@ -127,7 +126,7 @@ export default function ContactForm() {
                 autoComplete="name"
                 value={form.name}
                 onChange={(e) => set("name")(e.target.value)}
-                placeholder="Nama Anda"
+                placeholder="Nama lengkap Anda"
                 className="mt-2 w-full border border-neutral-200 bg-surface px-4 py-3 text-body text-neutral-900 placeholder:text-neutral-400 focus:border-brand focus:outline-none"
               />
             </div>
@@ -152,7 +151,7 @@ export default function ContactForm() {
 
             <div>
               <label htmlFor="category" className="block text-sm text-neutral-500">
-                Yang dibutuhkan
+                Kebutuhan Anda
               </label>
               {/* `appearance-none` removes the native arrow, so the chevron has to
                   be put back by hand or the field just reads as a text input.
@@ -183,12 +182,12 @@ export default function ContactForm() {
               type="submit"
               className="inline-flex h-12 w-full items-center justify-center border border-brand bg-brand-solid px-6 text-lg tracking-tight text-white transition-colors duration-300 hover:bg-brand-deep"
             >
-              Kirim lewat WhatsApp
+              Kirim via WhatsApp
             </button>
 
             <p className="text-xs text-neutral-500">
-              Tombol ini membuka WhatsApp dengan pesan yang sudah terisi. Tidak
-              ada data yang disimpan di situs ini.
+              Tombol ini akan membuka WhatsApp dengan pesan yang sudah terisi.
+              Data Anda tidak disimpan di situs ini.
             </p>
           </div>
         </form>

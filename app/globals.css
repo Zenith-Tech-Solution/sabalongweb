@@ -146,6 +146,19 @@
         overflow-x: clip;
     }
 
+    /* Drops the ~300ms synthetic-click delay on mobile without disabling
+       pinch-zoom or panning, so it is safe on the snap-scrolling price row.
+       Scoped to interactive elements rather than `body`, because setting it on
+       the root would switch off double-tap-to-zoom for the whole page. */
+    a,
+    button,
+    summary,
+    select,
+    label,
+    [role="button"] {
+        touch-action: manipulation;
+    }
+
     h1, h2, h3, h4 {
         text-wrap: balance;
         font-weight: 400;

@@ -15,8 +15,8 @@ export default function Faq() {
 
       <SectionHeading
         eyebrow="FAQ"
-        title="Pertanyaan sebelum Anda tanya"
-        lead="Enam hal yang paling sering masuk ke chat kami, dijawab apa adanya."
+        title="Pertanyaan yang sering ditanyakan"
+        lead="Enam pertanyaan yang paling sering masuk lewat chat, kami jawab apa adanya."
       />
 
       <div data-reveal-group className="relative z-2 mx-auto section-gap max-w-screen-xl px-4">

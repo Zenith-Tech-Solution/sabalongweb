@@ -21,8 +21,8 @@ export default function Pricing() {
 
       <SectionHeading
         eyebrow="Harga"
-        title="Harga yang terbuka di depan"
-        lead="Semua paket sudah termasuk domain dan hosting tahun pertama. Biaya perpanjangan di tahun berikutnya kami sebutkan saat konsultasi, bukan setelah website Anda jadi."
+        title="Harga jelas dari awal"
+        lead="Semua paket sudah termasuk domain dan hosting untuk tahun pertama. Biaya perpanjangan di tahun berikutnya akan kami sampaikan saat konsultasi, bukan setelah website selesai."
       />
 
       <div data-reveal-group className="relative z-2 mx-auto section-gap max-w-screen-xl px-4">
@@ -60,7 +60,7 @@ export default function Pricing() {
           {group.plans.map((plan, i) => (
             <div
               key={plan.name}
-              className="hover-cell relative flex min-w-[260px] shrink-0 snap-start flex-col justify-between border-r border-neutral-200 p-8 transition-colors duration-200 last:border-r-0 md:min-w-0 md:shrink md:border-r-0 md:p-10"
+              className="hover-cell relative flex min-w-[260px] shrink-0 snap-start flex-col justify-between border-r border-neutral-200 p-6 transition-colors duration-200 last:border-r-0 md:min-w-0 md:shrink md:border-r-0 md:p-10"
             >
               {i === 0 && (
                 <>
@@ -70,11 +70,21 @@ export default function Pricing() {
               )}
 
               <div>
-                {plan.highlight && (
-                  <span className="mb-4 inline-flex rounded-full border border-cream bg-cream px-2.5 py-1 text-sm font-medium tracking-tight text-brand-deep">
-                    {plan.highlight}
-                  </span>
-                )}
+                {/* The badge slot is reserved on every card, not just the one
+                    with a highlight. Rendering it conditionally pushed the
+                    "Paling Populer" name and price ~30px below its neighbours,
+                    which is the inconsistency: the three titles no longer sat
+                    on one line. The empty state is an invisible nbsp so the
+                    slot keeps its exact height. */}
+                <span
+                  className={`mb-4 inline-flex rounded-full border px-2.5 py-1 text-sm font-medium tracking-tight ${
+                    plan.highlight
+                      ? "border-cream bg-cream text-brand-deep"
+                      : "invisible border-transparent"
+                  }`}
+                >
+                  {plan.highlight || "\u00A0"}
+                </span>
                 <h3 className="mb-1 text-xl font-semibold tracking-tight text-neutral-900">
                   {plan.name}
                 </h3>
@@ -107,7 +117,7 @@ export default function Pricing() {
                     : "border-neutral-200 bg-surface text-neutral-800 hover:bg-neutral-100"
                 }`}
               >
-                Pilih paket
+                Pilih Paket
               </a>
             </div>
           ))}

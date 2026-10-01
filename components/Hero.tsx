@@ -36,7 +36,7 @@ export default function Hero() {
 
       <div className="relative z-10 mx-auto flex flex-col items-center justify-center pt-12 text-center md:pt-28">
         <h1 className="blur-up mx-auto max-w-screen-lg" style={{ "--delay": "0s" } as React.CSSProperties}>
-          Website yang benar-benar jalan, bukan sekadar tampil bagus
+          Jasa Pembuatan Website Murah, Mulai dari Rp350 Ribu.
         </h1>
 
         {/* No jargon and no fourth clause. "Source code", "template yang
@@ -47,12 +47,12 @@ export default function Hero() {
           className="blur-up mt-5 max-w-screen-md text-lg text-white md:mt-6 md:text-xl"
           style={{ "--delay": "0.2s" } as React.CSSProperties}
         >
-          Dibuat khusus untuk Anda, diuji langsung di HP, lalu semuanya jadi
-          milik Anda. Tidak ada biaya tersembunyi.
+          Kami bantu bisnis Anda tampil profesional di dunia digital, dengan
+          proses yang jelas dan harga yang bersahabat.
         </p>
 
         <div
-          className="blur-up relative mt-12 flex w-full flex-col justify-center gap-2 md:flex-row"
+          className="blur-up relative mt-12 grid w-fit max-w-full grid-cols-1 items-center justify-center gap-2 md:flex md:w-full md:flex-row"
           style={{ "--delay": "0.6s" } as React.CSSProperties}
         >
           {/* The pixel field sits behind the CTA row and fades out radially, so
@@ -74,23 +74,26 @@ export default function Hero() {
             /* Inverted like the nav CTA: white on purple is 1.00, white-on-white
                is 7.34 for the label and 4.74 against the header.
 
-               `text-lg` on a 343px-wide phone button was oversized and ate the
-               label into two lines, so the type and padding step up at `sm`
-               instead. Height stays 48px at every width — that is the touch
-               target, not a styling choice, and shrinking it on mobile would
-               cost reachability to buy nothing. */
-            className="inline-flex h-12 w-full items-center justify-center border border-white bg-white px-4 text-base tracking-tight text-brand-deep transition-colors duration-300 hover:border-lavender hover:bg-lavender sm:px-6 sm:text-lg md:w-auto"
+               `w-full` at every width is what made these read as slabs: a
+               320px-wide button holding "Konsultasi WhatsApp" stretched the
+               label across the whole screen with the padding as the only
+               inset. `grid w-fit grid-cols-1` stacks the two
+               labels as equal-width pills on mobile, centred as a pair, and `md:w-auto` returns the full row
+               once there is width to spend. Height stays `h-12` everywhere —
+               that is the touch target, not a styling choice. */
+            className="inline-flex h-12 w-full max-w-full items-center justify-center border border-white bg-white px-6 text-base tracking-tight text-brand-deep transition-colors duration-300 hover:border-lavender hover:bg-lavender sm:px-8 sm:text-lg md:w-auto"
           >
-            Konsultasi WhatsApp
+            Konsultasi via WhatsApp
           </a>
           <Link
             href="/#harga"
             /* Ghost, not tinted: brand-deep/40 landed 5.65 for the text but only
                1.19 against the header, so the edge vanished. A white border
-               gives a 4.74 boundary and keeps the fill clear. */
-            className="inline-flex h-12 w-full items-center justify-center border border-white bg-transparent px-4 text-base tracking-tight text-white transition-colors duration-300 hover:bg-white hover:text-brand-deep sm:px-6 sm:text-lg md:w-auto"
+               gives a 4.74 boundary and keeps the fill clear. Sized to match
+               the WhatsApp pill above. */
+            className="inline-flex h-12 w-full max-w-full items-center justify-center border border-white bg-transparent px-6 text-base tracking-tight text-white transition-colors duration-300 hover:bg-white hover:text-brand-deep sm:px-8 sm:text-lg md:w-auto"
           >
-            Lihat harga
+            Lihat Harga
           </Link>
         </div>
 

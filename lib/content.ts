@@ -104,38 +104,38 @@ export const heroPoints = [
 export const services: Service[] = [
   {
     title: "Website",
-    what: "Landing page, company profile, atau toko online — dibangun dari nol, siap dipakai klien Anda, bukan template yang dibongkar ulang.",
+    what: "Landing page, company profile, sampai toko online. Semuanya dibuat dari nol sesuai kebutuhan bisnis Anda, bukan sekadar template yang diganti isinya.",
     includes: [
-      "Struktur halaman dan sitemap yang disepakati dulu",
-      "Copywriting dan konten, diisi dengan materi asli Anda",
-      "Form kontak yang benar-benar terkirim",
+      "Struktur halaman dan sitemap disepakati bersama di awal",
+      "Konten ditulis dengan materi asli dari bisnis Anda",
+      "Form kontak yang terkirim dengan benar",
     ],
   },
   {
     title: "UI/UX Design",
-    what: "Wireframe dan prototipe yang bisa Anda klik, supaya arah desain sudah disepakati sebelum satu baris kode ditulis.",
+    what: "Wireframe dan prototipe yang bisa Anda coba langsung, sehingga arah desain sudah sepakat sebelum proses coding dimulai.",
     includes: [
-      "Wireframe low-fidelity per halaman",
+      "Wireframe untuk setiap halaman",
       "Prototipe interaktif untuk alur utama",
-      "Token warna, tipografi, dan spacing sebagai acuan coding",
+      "Panduan warna, tipografi, dan spasi sebagai acuan pengembangan",
     ],
   },
   {
     title: "Maintenance",
-    what: "Pembaruan keamanan, backup, dan perbaikan yang dikerjakan berjadwal, bukan menunggu website rusak dulu.",
+    what: "Pembaruan keamanan, backup, dan perbaikan yang dilakukan secara rutin, jadi Anda tidak perlu menunggu website bermasalah dulu.",
     includes: [
-      "Update dependency dan patch keamanan",
+      "Pembaruan sistem dan patch keamanan",
       "Backup berkala dengan pemulihan yang sudah diuji",
       "Perbaikan bug dan penyesuaian konten",
     ],
   },
   {
     title: "Sistem Kustom",
-    what: "Aplikasi internal atau sistem informasi di luar paket di atas — scope, harga, dan waktunya ditentukan di awal.",
+    what: "Butuh aplikasi internal atau sistem informasi di luar paket standar? Kami siap membantu, dengan cakupan, biaya, dan waktu pengerjaan yang dibicarakan sejak awal.",
     includes: [
       "Sistem informasi manajemen",
       "Integrasi API pihak ketiga",
-      "Panel admin dengan hak akses per peran",
+      "Panel admin dengan hak akses sesuai peran",
     ],
   },
 ];
@@ -148,7 +148,7 @@ export const navLinks = [
   { label: "Layanan", href: "/#layanan" },
   { label: "Harga", href: "/#harga" },
   { label: "Portofolio", href: "/#portfolio" },
-  { label: "Team", href: "/team" },
+  { label: "Tim", href: "/team" },
   { label: "Blog", href: "/blog" },
   { label: "Kontak", href: "/#kontak" },
 ];
@@ -156,23 +156,23 @@ export const navLinks = [
 export const processSteps: ProcessStep[] = [
   {
     title: "Diskusi",
-    deliverable: "Ringkasan kebutuhan, target audiens, dan anggaran yang disepakati tertulis.",
+    deliverable: "Kami mulai dengan memahami kebutuhan, target audiens, dan anggaran Anda, lalu dirangkum secara tertulis.",
   },
   {
     title: "Struktur",
-    deliverable: "Sitemap dan wireframe kasar untuk Anda setujui sebelum desain detail.",
+    deliverable: "Sitemap dan wireframe awal untuk Anda cek dan setujui sebelum masuk ke desain detail.",
   },
   {
     title: "Desain",
-    deliverable: "Mockup halaman final beserta token visual yang jadi acuan development.",
+    deliverable: "Mockup halaman final beserta panduan visual sebagai acuan pengembangan.",
   },
   {
     title: "Development",
-    deliverable: "Website berjalan di staging yang bisa Anda buka dan uji sendiri.",
+    deliverable: "Website berjalan di staging, sehingga Anda bisa membuka dan mencobanya sendiri.",
   },
   {
     title: "Serah terima",
-    deliverable: "Domain, hosting, kredensial, dan dokumentasi serah terima di tangan Anda.",
+    deliverable: "Domain, hosting, kredensial, dan dokumentasi kami serahkan lengkap kepada Anda.",
   },
 ];
 
@@ -184,10 +184,10 @@ export const pricingGroups: PricingGroup[] = [
     plans: [
       {
         name: "Basic",
-        price: "350K",
+        price: "350.000",
         features: [
-          "1 Halaman landing page",
-          "Desain responsif mobile & desktop",
+          "1 halaman landing page",
+          "Desain responsif untuk HP dan desktop",
           "Form kontak",
           "Domain .com/.id (1 tahun)",
           "Hosting gratis",
@@ -195,11 +195,11 @@ export const pricingGroups: PricingGroup[] = [
       },
       {
         name: "Standard",
-        price: "750K",
+        price: "750.000",
         features: [
-          "5 Halaman",
-          "Desain responsif mobile & desktop",
-          "Form kontak & integrasi sosial media",
+          "5 halaman",
+          "Desain responsif untuk HP dan desktop",
+          "Form kontak dan integrasi media sosial",
           "Domain .com/.id (1 tahun)",
           "Hosting gratis",
           "Optimasi SEO dasar",
@@ -207,15 +207,17 @@ export const pricingGroups: PricingGroup[] = [
       },
       {
         name: "Premium",
-        price: "1,2JT",
-        highlight: "Terlaris",
+        price: "1.200.000",
+        highlight: "Paling Populer",
         features: [
-          "Halaman tidak terbatas",
-          "Toko online + sistem pembayaran",
+          "Jumlah halaman tidak terbatas",
+          "Toko online dengan sistem pembayaran",
           "Dashboard admin",
+          // [ISI] "Domain premium" is still undefined. Needs the owner to say
+          // what it means — premium TLD, or a short/preferred name?
           "Domain premium (1 tahun)",
           "Hosting gratis",
-          "SEO lanjutan & analitik",
+          "SEO lanjutan dan analitik",
         ],
       },
     ],
@@ -227,23 +229,23 @@ export const pricingGroups: PricingGroup[] = [
     plans: [
       {
         name: "Basic",
-        price: "150K",
+        price: "150.000",
         features: ["Wireframe 1 halaman utama", "User flow sederhana", "1x revisi"],
       },
       {
         name: "Standard",
-        price: "350K",
+        price: "350.000",
         features: [
           "Wireframe + prototipe interaktif",
-          "3 Halaman",
+          "3 halaman",
           "User flow & sitemap",
           "3x revisi",
         ],
       },
       {
         name: "Premium",
-        price: "550K",
-        highlight: "Terlaris",
+        price: "550.000",
+        highlight: "Paling Populer",
         features: [
           "Wireframe + prototipe interaktif",
           "Halaman tidak terbatas",
@@ -261,20 +263,20 @@ export const pricingGroups: PricingGroup[] = [
     plans: [
       {
         name: "Basic",
-        price: "900K",
+        price: "900.000",
         features: [
           "Toko online dasar",
-          "10 Produk",
-          "1 Payment gateway",
+          "10 produk",
+          "1 payment gateway",
           "Desain responsif",
         ],
       },
       {
         name: "Standard",
-        price: "1,5JT",
+        price: "1.500.000",
         features: [
           "Toko online",
-          "50 Produk",
+          "50 produk",
           "Multi payment gateway",
           "Dashboard transaksi",
           "Manajemen stok",
@@ -282,8 +284,8 @@ export const pricingGroups: PricingGroup[] = [
       },
       {
         name: "Premium",
-        price: "2,5JT",
-        highlight: "Terlaris",
+        price: "2.500.000",
+        highlight: "Paling Populer",
         features: [
           "Unlimited produk",
           "Multi payment gateway",
@@ -301,7 +303,7 @@ export const portfolio: PortfolioItem[] = [
   {
     title: "Sijian",
     category: "Simulasi ujian",
-    desc: "Mengubah file kisi-kisi TXT, DOCX, atau PDF menjadi soal pilihan ganda acak di browser. Tanpa daftar akun.",
+    desc: "Mengubah file kisi-kisi (TXT, DOCX, atau PDF) menjadi soal pilihan ganda acak langsung di browser, tanpa perlu daftar akun.",
     tags: ["Next.js", "Tailwind CSS"],
     image: "/portfolio/sijian.webp",
     url: "https://sijian.vercel.app",
@@ -309,7 +311,7 @@ export const portfolio: PortfolioItem[] = [
   {
     title: "Arif Car Rental",
     category: "Rental mobil",
-    desc: "Armada, destinasi, dan pemesanan yang diteruskan ke WhatsApp. Dibangun untuk operator di Ende, Flores.",
+    desc: "Menampilkan armada dan destinasi, dengan pemesanan yang langsung diteruskan ke WhatsApp. Dibuat khusus untuk operator rental mobil.",
     tags: ["HTML", "JavaScript", "Tailwind CSS"],
     image: "/portfolio/arif.webp",
     url: "https://template-website-rental-v1.vercel.app",
@@ -317,7 +319,7 @@ export const portfolio: PortfolioItem[] = [
   {
     title: "Around World",
     category: "Panduan wisata",
-    desc: "Panduan destinasi per wilayah dengan galeri foto, disusun untuk dibaca satu-satu kota, bukan sekali scroll.",
+    desc: "Panduan destinasi per wilayah dengan galeri foto, disusun supaya nyaman dibaca kota demi kota.",
     tags: ["HTML", "jQuery", "Tailwind CSS"],
     image: "/portfolio/aroundworld.webp",
     url: "https://aroundworldtravel.netlify.app",
@@ -325,7 +327,7 @@ export const portfolio: PortfolioItem[] = [
   {
     title: "Voyager Luxe",
     category: "Template",
-    desc: "Template perjalanan dengan form pemesanan yang sudah terhubung. Dibangun sebagai bahan awal, bukan produk akhir.",
+    desc: "Template situs perjalanan dengan form pemesanan yang sudah terhubung. Disiapkan sebagai dasar pengembangan, bukan produk akhir.",
     tags: ["HTML", "Tailwind CSS"],
     image: "/portfolio/voyager.webp",
     url: "https://template-web-travel-v1.vercel.app",
@@ -335,27 +337,27 @@ export const portfolio: PortfolioItem[] = [
 export const faqItems: FaqItem[] = [
   {
     q: "Berapa lama pengerjaannya?",
-    a: "Landing page 3–5 hari kerja, company profile 5–10 hari, toko online 10–20 hari. Angka ini berlaku kalau konten sudah lengkap saat proyek dimulai; menunggu materi dari klien adalah penundaan yang paling sering terjadi.",
+    a: "Landing page biasanya selesai dalam 3-5 hari. Untuk paket yang lebih besar, waktunya menyesuaikan, dan estimasinya kami sampaikan sebelum proyek dimulai.",
   },
   {
-    q: "Domain dan hosting termasuk?",
-    a: "Termasuk di semua paket: domain .com/.id dan hosting gratis selama tahun pertama. Biaya perpanjangan domain dan hosting di tahun berikutnya kami bicarakan di awal, tidak tiba-tiba di akhir.",
+    q: "Apakah domain dan hosting sudah termasuk?",
+    a: "Ya, semua paket sudah termasuk domain dan hosting untuk tahun pertama. Biaya perpanjangan di tahun berikutnya akan kami jelaskan saat konsultasi.",
   },
   {
-    q: "Bisa pakai desain yang saya punya?",
-    a: "Bisa. Kami lebih senang membangun dari referensi nyata Anda daripada menebak. Kalau yang ada baru wireframe atau contoh dari kompetitor, sebutkan — kami akan bilang kalau ada bagian yang tidak layak dibangun apa adanya.",
+    q: "Bisakah saya memakai desain yang sudah saya punya?",
+    a: "Bisa. Kirimkan saja desain Anda, nanti kami wujudkan menjadi website yang nyaman dibuka di HP maupun desktop. Kalau yang tersedia baru wireframe kasar, sebutkan saja — kami akan bilang kalau ada bagian yang perlu dirapikan dulu sebelum dibangun.",
   },
   {
     q: "Berapa kali revisi?",
-    a: "Jumlah revisi tertulis di masing-masing paket di halaman harga. Perubahan scope di luar itu dibahas dan dihitung terpisah sebelum dikerjakan.",
+    a: "Jumlah revisi tertulis di masing-masing paket di halaman harga. Karena Anda menerima preview secara rutin, sebagian besar penyesuaian sudah selesai sebelum tahap akhir. Perubahan scope di luar itu dibahas dan dihitung terpisah sebelum dikerjakan.",
   },
   {
     q: "Apakah saya bisa mengedit sendiri nanti?",
     a: "Bisa, tapi tergantung paket. Landing page statis bisa diedit langsung. Toko online dan panel admin lewat dashboard yang kami buat. Kami jelaskan batasannya sebelum deal, bukan setelah.",
   },
   {
-    q: "Bagaimana kalau ada yang rusak?",
-    a: "Kirim lewat WhatsApp, kami tangani. Untuk paket yang menyertakan maintenance, perbaikan keamanan dan pembaruan termasuk selama masa tersebut.",
+    q: "Bagaimana kalau ada yang bermasalah?",
+    a: "Cukup hubungi kami lewat WhatsApp. Untuk paket yang menyertakan Maintenance, perbaikan keamanan dan pembaruan termasuk selama masa tersebut.",
   },
 ];
 
@@ -385,42 +387,42 @@ const dicebear = (seed: string) =>
 export const comments: Comment[] = [
   {
     quote:
-      "Pengerjaan empat hari, sesuai janji. Yang bikin kaget, mereka kirim preview tiap hari, jadi tidak ada lagi drama 'sudah lama kok belum ada kabar'.",
+      "Dikerjakan empat hari, sesuai janji. Yang bikin saya kesan, mereka mengirim preview setiap hari, jadi saya tidak perlu bertanya-tanya soal progresnya.",
     name: "Dewi Anggraini",
     role: "Pemilik, Toko Decor Lux",
     avatar: dicebear("Dewi Anggraini"),
   },
   {
     quote:
-      "Saya kirim materi berantakan, mereka rapikan sendiri. Hasil akhirnya rapi dan ringan dibuka dari HP, dan itu tidak pernah saya pikirkan sebelumnya.",
+      "Materi saya masih berantakan, tapi mereka yang merapikannya. Hasilnya bersih dan ringan dibuka dari HP, di luar dugaan saya.",
     name: "Bagus Pratama",
     role: "Founder, Bengkel Motor Jaya",
     avatar: dicebear("Bagus Pratama"),
   },
   {
     quote:
-      "Harga di awal sama dengan harga di akhir. Tidak ada tambahan diam-diam di tengah jalan seperti pengalaman saya di tempat lain.",
+      "Harga di awal sama dengan harga di akhir. Tidak ada tambahan di tengah jalan, tidak seperti pengalaman saya sebelumnya.",
     name: "Siti Nurhaliza",
     role: "Marketing, Kopi Senja",
     avatar: dicebear("Siti Nurhaliza"),
   },
   {
     quote:
-      "Migrasi empat puluh halaman lama tidak ada yang hilang. Posisi di mesin pencari naik sebulan setelah dipindah, itu di luar perkiraan saya.",
+      "Empat puluh halaman lama kami dipindahkan tanpa ada yang hilang. Sebulan kemudian, posisi kami di mesin pencari malah naik.",
     name: "Andi Wijaya",
     role: "Pemilik, Studio Fotografi Nada",
     avatar: dicebear("Andi Wijaya"),
   },
   {
     quote:
-      "Sering chat malam, tetap dijawab. Saya kira tidak akan dilayani di luar jam kerja, ternyata tidak begitu.",
+      "Saya chat malam hari pun tetap dibalas. Ternyata layanannya tidak terbatas jam kerja.",
     name: "Rina Marlina",
     role: "Owner, Kelas Mengaji An-Nur",
     avatar: dicebear("Rina Marlina"),
   },
   {
     quote:
-      "Suka karena mereka bilang kalau request saya belum masuk akal. Bukan sekadar iya semua lalu diam saja sampai barang dikirim.",
+      "Mereka berani bilang kalau permintaan saya kurang tepat, bukan sekadar mengiyakan lalu diam sampai hasil jadi. Saya menghargai kejujuran itu.",
     name: "Hendra Gunawan",
     role: "Direktur, PT Sinar Logam",
     avatar: dicebear("Hendra Gunawan"),

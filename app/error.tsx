@@ -20,7 +20,7 @@ export default function Error({
   return (
     <main
       id="main"
-      className="flex min-h-screen w-full flex-col items-center justify-center px-6 py-24"
+      className="flex min-h-dvh w-full flex-col items-center justify-center px-6 py-24"
     >
       <div className="mx-auto flex w-full max-w-xl flex-col items-center text-center">
         <p className="font-mono text-label text-ink-faint uppercase">Error 500</p>

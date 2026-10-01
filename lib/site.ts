@@ -13,22 +13,20 @@ export const site = {
   /** Canonical origin, no trailing slash. */
   url: (process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_URL).replace(/\/$/, ""),
 
-  title: "SabalongWeb — Jasa Pembuatan Website Nusa Tenggara Barat",
+  title: "Jasa Pembuatan Website Murah Mulai Rp350 Ribu | SabalongWeb",
   titleTemplate: "%s | SabalongWeb",
 
   description:
-    "Studio kreatif Nusa Tenggara Barat yang membuat website profesional untuk bisnis: landing page, company profile, toko online, UI/UX design, dan SEO. Mulai dari Rp350K.",
+    "Butuh website untuk bisnis Anda? SabalongWeb melayani pembuatan website murah dan profesional mulai Rp350 ribu. Konsultasi pertama gratis, tanpa komitmen.",
 
   keywords: [
-    "jasa pembuatan website",
-    "jasa website Nusa Tenggara Barat",
+    "jasa pembuatan website murah",
     "jasa website Indonesia",
     "pembuatan website profesional",
     "landing page murah",
     "company profile",
     "toko online",
     "UI/UX design",
-    "jasa SEO",
     "web developer",
   ],
 
@@ -42,16 +40,22 @@ export const site = {
   },
 
   business: {
-    /** Real postal address, surfaced on the contact section and in JSON-LD. */
+    /**
+     * Region claims were pulled from the copy on request: the page now sells the
+     * price and the turnaround, not a location. `country` stays because a
+     * PostalAddress without it is not a valid schema.org node; the city and
+     * province are gone rather than moved somewhere quieter.
+     */
     address: {
-      locality: "Sumbawa Besar",
-      region: "Nusa Tenggara Barat",
       country: "ID",
     },
-    /** Region the service is marketed to. Deliberately broader than the city. */
-    areaServed: "Nusa Tenggara Barat",
-    priceRange: "Rp350K - Rp2,5JT",
+    /** No city or province named anywhere, including JSON-LD. */
+    areaServed: "Indonesia",
+    priceRange: "Rp350.000 - Rp2.500.000",
+    /** schema.org form — must stay machine-readable. */
     openingHours: "Mo-Su 08:00-22:00",
+    /** Human form for the contact section. */
+    openingHoursLabel: "Setiap hari, 08.00-22.00",
   },
 } as const
 

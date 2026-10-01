@@ -56,15 +56,15 @@ const jsonLd = {
   email: site.contact.email,
   image: absoluteUrl("/logo-sabalong.png"),
   logo: absoluteUrl("/logo-sabalong.png"),
+  /* No city, no province: the copy revision removed every location claim,
+     so naming one here would contradict the page it is describing. */
   address: {
     "@type": "PostalAddress",
-    addressLocality: site.business.address.locality,
-    addressRegion: site.business.address.region,
     addressCountry: site.business.address.country,
   },
   priceRange: site.business.priceRange,
   areaServed: {
-    "@type": "AdministrativeArea",
+    "@type": "Country",
     name: site.business.areaServed,
   },
   openingHours: site.business.openingHours,
