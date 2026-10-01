@@ -18,10 +18,15 @@ export default function TeamPage() {
       <Navbar />
 
       <main id="main" className="flex-1">
-        {/* `relative` is what gives DotField an anchor; the canvas is absolutely
-            filled and sits behind the text at `-z-1`. */}
-        <section className="relative overflow-hidden px-4 pt-28 pb-16 md:pt-36 md:pb-20">
+        {/* `relative` anchors the dot field; the white fade below dissolves it
+            into the section underneath, so the two read as one panel instead of
+            a pattern that stops at a hard rule. */}
+        <section className="relative overflow-hidden px-4 pt-28 pb-16 md:pt-36 md:pb-24">
           <DotField />
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-canvas via-canvas/70 to-transparent"
+          />
           <div className="relative z-1 mx-auto max-w-screen-xl">
             <h1 className="mt-6 max-w-3xl text-balance">
               Tiga orang, satu studio kecil

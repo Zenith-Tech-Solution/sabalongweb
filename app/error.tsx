@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { waLink } from "@/lib/site"
 
 /**
  * 500. Follows the same shape as `not-found.tsx`: one centred `max-w-xl`
@@ -26,12 +27,13 @@ export default function Error({
         <p className="font-mono text-label text-ink-faint uppercase">Error 500</p>
 
         <h1 className="mt-4 text-section text-balance text-ink">
-          Terjadi kesalahan di sisi kami
+          Terjadi Kendala pada Halaman Ini
         </h1>
 
         <p className="mt-4 text-lead text-ink-muted">
-          Bukan salah Anda. Coba muat ulang sekali — kalau masih muncul, kabari
-          kami lewat WhatsApp supaya kami bisa menelusurinya.
+          Mohon maaf atas ketidaknyamanannya. Silakan muat ulang halaman. Jika
+          kendala masih berlanjut, hubungi kami melalui WhatsApp agar dapat segera
+          kami tangani.
         </p>
 
         {error.digest && (
@@ -46,14 +48,24 @@ export default function Error({
             onClick={() => reset()}
             className="inline-flex h-12 items-center justify-center border border-brand bg-brand-solid px-6 text-body font-medium text-white transition-colors duration-150 hover:border-brand-deep hover:bg-brand-deep"
           >
-            Coba lagi
+            Muat Ulang
           </button>
           <Link
             href="/"
             className="inline-flex h-12 items-center justify-center border border-neutral-200 bg-surface px-6 text-body font-medium text-ink transition-colors duration-150 hover:bg-neutral-100"
           >
-            Kembali ke beranda
+            Kembali ke Beranda
           </Link>
+          <a
+            href={waLink(
+              "Halo, saya menemukan kendala saat membuka halaman di situs SabalongWeb.",
+            )}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-12 items-center justify-center border border-neutral-200 bg-surface px-6 text-body font-medium text-ink transition-colors duration-150 hover:bg-neutral-100"
+          >
+            Hubungi via WhatsApp
+          </a>
         </div>
       </div>
     </main>

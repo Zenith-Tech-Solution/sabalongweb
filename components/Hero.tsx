@@ -1,5 +1,6 @@
 import Link from "next/link"
 import CommentMarquee from "@/components/CommentMarquee"
+import DotField from "@/components/DotField"
 import { site } from "@/lib/site"
 
 /**
@@ -55,16 +56,19 @@ export default function Hero() {
           className="blur-up relative mt-12 grid w-fit max-w-full grid-cols-1 items-center justify-center gap-2 md:flex md:w-full md:flex-row"
           style={{ "--delay": "0.6s" } as React.CSSProperties}
         >
-          {/* The pixel field sits behind the CTA row and fades out radially, so
-              the band around the buttons is not flat purple. It is masked, not
-              bordered, which is why it never draws a visible edge. `-z-1` keeps
-              it under the buttons without needing a z-index on every link. */}
+          {/* The dot field sits behind the CTA row and fades out radially, so the band
+              around the buttons is not flat purple. Masked, not bordered, which
+              is why it never draws a visible edge. `-z-1` keeps it under the
+              buttons without needing a z-index on every link. */}
           <div
             className="pointer-events-none absolute inset-x-0 top-1/2 -z-1 h-72 -translate-y-1/2 md:h-96"
             aria-hidden
-            style={{ ["--tint" as string]: "rgb(255 255 255 / 0.55)" }}
+            style={{
+              maskImage:
+                "radial-gradient(ellipse 70% 60% at 50% 45%, #000 0%, rgb(0 0 0 / 0.55) 45%, transparent 78%)",
+            }}
           >
-            <div className="pixel-vignette size-full" />
+            <DotField cell={22} size={3} tint="rgb(255 255 255 / 0.5)" />
           </div>
 
           <a
