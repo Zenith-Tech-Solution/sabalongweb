@@ -2,6 +2,7 @@ import Image from "next/image"
 import type { Metadata } from "next"
 import Navbar from "@/components/Navbar"
 import Footer from "@/components/Footer"
+import DotField from "@/components/DotField"
 import { team } from "@/lib/content"
 
 export const metadata: Metadata = {
@@ -17,8 +18,11 @@ export default function TeamPage() {
       <Navbar />
 
       <main id="main" className="flex-1">
-        <section className="px-4 pt-28 pb-16 md:pt-36 md:pb-20">
-          <div className="mx-auto max-w-screen-xl">
+        {/* `relative` is what gives DotField an anchor; the canvas is absolutely
+            filled and sits behind the text at `-z-1`. */}
+        <section className="relative overflow-hidden px-4 pt-28 pb-16 md:pt-36 md:pb-20">
+          <DotField />
+          <div className="relative z-1 mx-auto max-w-screen-xl">
             <h1 className="mt-6 max-w-3xl text-balance">
               Tiga orang, satu studio kecil
             </h1>
