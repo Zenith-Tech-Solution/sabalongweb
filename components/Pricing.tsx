@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { pricingGroups } from "@/lib/content"
 import { site, waLink } from "@/lib/site"
 import SectionHeading from "@/components/SectionHeading"
@@ -14,6 +14,7 @@ import SectionHeading from "@/components/SectionHeading"
 export default function Pricing() {
   const [activeId, setActiveId] = useState(pricingGroups[0].id)
   const group = pricingGroups.find((g) => g.id === activeId) ?? pricingGroups[0]
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   return (
     <section id="harga" className="section-container relative section-pad">
@@ -52,11 +53,29 @@ export default function Pricing() {
           })}
         </div>
 
-        {/* Mobile: a snap-scrolling flex row, so a second price is one swipe
-            away instead of a full screen of scrolling. Desktop goes back to
-            the 3-column grid. `border-t` is gone because the tablist above
-            already draws that rule, and two stacked 1px lines read as a seam. */}
-        <div className="flex snap-x snap-mandatory overflow-x-auto border-b border-neutral-200 md:grid md:grid-cols-3 md:divide-x md:overflow-visible">
+        {/* Mobile: horizontal carousel with manual buttons instead of native scrollbar.
+            Desktop returns to 3-column grid. */}
+        <div className="relative border-b border-neutral-200 md:border-b-0">
+          <button
+            type="button"
+            aria-label="Scroll ke kiri"
+            onClick={() => scrollRef.current?.scrollBy({ left: -260, behavior: "smooth" })}
+            className="absolute left-1 top-1/2 z-10 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/90 px-2 py-2 text-sm shadow-md backdrop-blur md:hidden"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            aria-label="Scroll ke kanan"
+            onClick={() => scrollRef.current?.scrollBy({ left: 260, behavior: "smooth" })}
+            className="absolute right-1 top-1/2 z-10 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/90 px-2 py-2 text-sm shadow-md backdrop-blur md:hidden"
+          >
+            →
+          </button>
+          <div
+            ref={scrollRef}
+            className="flex snap-x snap-mandatory scroll-px-4 overflow-x-auto px-4 md:grid md:grid-cols-3 md:divide-x md:overflow-visible md:px-0"
+          >
           {group.plans.map((plan, i) => (
             <div
               key={plan.name}
@@ -121,6 +140,7 @@ export default function Pricing() {
               </a>
             </div>
           ))}
+          </div>
         </div>
       </div>
     </section>

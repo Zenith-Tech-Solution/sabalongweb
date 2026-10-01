@@ -44,7 +44,7 @@ export default function Hero() {
             business owner has to stop and decode; ownership is said as
             "milik Anda", which is the same promise in plain words. */}
         <p
-          className="blur-up mt-5 max-w-screen-md text-lg text-white md:mt-6 md:text-xl"
+          className="blur-up mt-4 max-w-screen-md text-base text-white/90 md:mt-6 md:text-lg"
           style={{ "--delay": "0.2s" } as React.CSSProperties}
         >
           Kami bantu bisnis Anda tampil profesional di dunia digital, dengan
