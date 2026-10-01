@@ -189,7 +189,7 @@ export const pricingGroups: PricingGroup[] = [
           "1 halaman landing page",
           "Desain responsif untuk HP dan desktop",
           "Form kontak",
-          "Domain .com/.id (1 tahun)",
+          "Domain .biz.id (1 tahun)",
           "Hosting gratis",
         ],
       },
@@ -200,7 +200,7 @@ export const pricingGroups: PricingGroup[] = [
           "5 halaman",
           "Desain responsif untuk HP dan desktop",
           "Form kontak dan integrasi media sosial",
-          "Domain .com/.id (1 tahun)",
+          "Domain .id (1 tahun)",
           "Hosting gratis",
           "Optimasi SEO dasar",
         ],
@@ -213,9 +213,11 @@ export const pricingGroups: PricingGroup[] = [
           "Jumlah halaman tidak terbatas",
           "Toko online dengan sistem pembayaran",
           "Dashboard admin",
-          // [ISI] "Domain premium" is still undefined. Needs the owner to say
-          // what it means — premium TLD, or a short/preferred name?
-          "Domain premium (1 tahun)",
+          // "Premium" here cannot mean a PANDI premium domain: that is a
+          // 2-character name and PANDI prices those at Rp 16.650.000. It reads
+          // as `.com`, which costs Rp 185-219k and still leaves ~Rp 1 juta of
+          // this plan for the store and the dashboard.
+          "Domain .com (1 tahun)",
           "Hosting gratis",
           "SEO lanjutan dan analitik",
         ],
