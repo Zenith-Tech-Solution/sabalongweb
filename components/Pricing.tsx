@@ -55,26 +55,10 @@ export default function Pricing() {
 
         {/* Mobile: horizontal carousel with manual buttons instead of native scrollbar.
             Desktop returns to 3-column grid. */}
-        <div className="relative border-b border-neutral-200 md:border-b-0">
-          <button
-            type="button"
-            aria-label="Scroll ke kiri"
-            onClick={() => scrollRef.current?.scrollBy({ left: -260, behavior: "smooth" })}
-            className="absolute left-1 top-1/2 z-10 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/90 px-2 py-2 text-sm shadow-md backdrop-blur md:hidden"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            aria-label="Scroll ke kanan"
-            onClick={() => scrollRef.current?.scrollBy({ left: 260, behavior: "smooth" })}
-            className="absolute right-1 top-1/2 z-10 -translate-y-1/2 rounded-full border border-neutral-200 bg-white/90 px-2 py-2 text-sm shadow-md backdrop-blur md:hidden"
-          >
-            →
-          </button>
+        <div>
           <div
             ref={scrollRef}
-            className="flex snap-x snap-mandatory scroll-px-4 overflow-x-auto px-4 md:grid md:grid-cols-3 md:divide-x md:overflow-visible md:px-0"
+            className="flex snap-x snap-mandatory scroll-px-4 overflow-hidden border-b border-neutral-200 px-4 md:grid md:grid-cols-3 md:divide-x md:overflow-visible md:px-0"
           >
           {group.plans.map((plan, i) => (
             <div
@@ -140,6 +124,28 @@ export default function Pricing() {
               </a>
             </div>
           ))}
+          </div>
+          {/* Flat, square, brand-purple controls sitting under the row. Rounded
+              white pills on top of the cards covered the feature lists, and
+              floating chrome here competes with the cards instead of steering
+              them. */}
+          <div className="mt-4 flex justify-start gap-2 md:hidden">
+            <button
+              type="button"
+              aria-label="Lihat paket sebelumnya"
+              onClick={() => scrollRef.current?.scrollBy({ left: -260, behavior: "smooth" })}
+              className="inline-flex h-11 w-11 items-center justify-center bg-brand-solid text-lg leading-none text-white transition-colors hover:bg-brand-deep"
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              aria-label="Lihat paket berikutnya"
+              onClick={() => scrollRef.current?.scrollBy({ left: 260, behavior: "smooth" })}
+              className="inline-flex h-11 w-11 items-center justify-center bg-brand-solid text-lg leading-none text-white transition-colors hover:bg-brand-deep"
+            >
+              →
+            </button>
           </div>
         </div>
       </div>
